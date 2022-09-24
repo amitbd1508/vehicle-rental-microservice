@@ -1,0 +1,18 @@
+
+
+
+server:
+  port: 8080
+spring:
+  application:
+    name: account-service
+
+  data:
+    mongodb:
+      uri: mongodb+srv://reservation-admin:DQ53QNzEbDlKGtHb@cluster0.10ffeuz.mongodb.net/?retryWrites=true&w=majority
+      database: dev-catalog
+
+jwt:
+  expiry: 300000
+  secret: top-secret
+
