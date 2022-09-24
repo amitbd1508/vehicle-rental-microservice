@@ -1,0 +1,33 @@
+
+
+server:
+  port: 8080
+spring:
+  application:
+    name: account-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/accountdb
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+
+  jpa:
+    hibernate.ddl-auto: create-drop
+    generate-ddl: true
+    show-sql: true
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+  sql:
+    init:
+      mode: always
+
+jwt:
+  expiry: 300000
+  secret: top-secret
+

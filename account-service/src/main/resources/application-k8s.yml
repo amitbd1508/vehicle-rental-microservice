@@ -1,0 +1,31 @@
+
+server:
+  port: ${SERVER_PORT}
+spring:
+  application:
+    name: account-service
+  datasource:
+    url: jdbc:mysql://${DB_URL}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+
+  jpa:
+    hibernate.ddl-auto: create-drop
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+  sql:
+    init:
+      mode: always
+
+jwt:
+  expiry: ${JWT_EXPIRY}
+  secret: ${JWT_SECRET}
+

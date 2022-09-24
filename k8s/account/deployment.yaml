@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account
+  labels:
+    app: account
+spec:
+  selector:
+    matchLabels:
+      app: account
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: account
+    spec:
+      containers:
+        - name: account
+          image: amitbd1508/account-service:2.5
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env: # Setting Environment Variables
+            - name: PRODUCT_URL
+              value: http://product-svc:8080/products/
+
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: account-app-config
+                  key: db_url
+
+            - name: DB_PORT
+              value: "3306"
+
+            - name: SERVER_PORT
+              value: "8080"
+
+            - name: DB_NAME  # Setting Database name from configMap
+              valueFrom:
+                configMapKeyRef:
+                  name: accountdb-config
+                  key: dbName
+
+            - name: DB_USERNAME  # Setting Database username from Secret
+              valueFrom:
+                secretKeyRef:
+                  name: accountdb-secrets
+                  key: username
+
+            - name: DB_PASSWORD # Setting Database password from Secret
+              valueFrom:
+                secretKeyRef:
+                  name: accountdb-secrets
+                  key: password
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: account-app-secret
+                  key: jwt-secret
+            - name: JWT_EXPIRY
+              valueFrom:
+                configMapKeyRef:
+                  name: account-app-config
+                  key: jwt_expire
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: account-svc
+spec:
+  selector:
+    app: account
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: account-app-config
+data:
+  db_url: account-db-service
+  topic-name: topic
+  jwt_expire: "3600000"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: account-app-secret
+type: Opaque
+stringData:
+  username: cm9vdA==
+  password: MTk4Ng==
+  jwt-secret: FKckg7aj1rt9scui5ik5tr93d0FKckg7aj1rt9scui5ik5tr93d0FKckg7aj1rt9scui5ik5tr93d0

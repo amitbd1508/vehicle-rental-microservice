@@ -1,0 +1,117 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order
+  labels:
+    app: order
+spec:
+  selector:
+    matchLabels:
+      app: order
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: order
+    spec:
+      containers:
+        - name: order
+          image: amitbd1508/order-service:2.5
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env: # Setting Enviornmental Variables
+            - name: PRODUCT_URL
+              value: http://product-svc:8080
+            - name: PAYMENT_URL
+              value: http://payment-svc:8080
+            - name: ACCOUNT_URL
+              value: http://account-svc:8080
+            - name: PAYMENT_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  name: order-app-config
+                  key: payment_token
+            - name: PRODUCT_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  name: order-app-config
+                  key: product_token
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: order-app-config
+                  key: db_url
+
+            - name: DB_PORT
+              value: "3306"
+
+            - name: SERVER_PORT
+              value: "8080"
+
+            - name: DB_NAME  # Setting Database name from configMap
+              valueFrom:
+                configMapKeyRef:
+                  name: orderdb-config
+                  key: dbName
+
+            - name: DB_USERNAME  # Setting Database username from Secret
+              valueFrom:
+                secretKeyRef:
+                  name: orderdb-secrets
+                  key: username
+
+            - name: DB_PASSWORD # Setting Database password from Secret
+              valueFrom:
+                secretKeyRef:
+                  name: orderdb-secrets
+                  key: password
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: order-app-secret
+                  key: jwt-secret
+            - name: JWT_EXPIRY
+              valueFrom:
+                configMapKeyRef:
+                  name: order-app-config
+                  key: jwt_expire
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-svc
+spec:
+  selector:
+    app: order
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: order-app-config
+data:
+  db_url: order-db-service
+  topic-name: topic
+  jwt_expire: "3600000"
+  product_token: producttoken01jdskfhkd
+  payment_token: paymentttoken01sdfsdfs
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: order-app-secret
+type: Opaque
+stringData:
+  username: cm9vdA==
+  password: MTk4Ng==
+  jwt-secret: FKckg7aj1rt9scui5ik5tr93d0FKckg7aj1rt9scui5ik5tr93d0FKckg7aj1rt9scui5ik5tr93d0
+
