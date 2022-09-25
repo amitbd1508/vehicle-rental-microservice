@@ -18,23 +18,7 @@ public class Catalog {
     private String id;
     private String name;
 
-    private String plateNumber;
 
-    private String brand;
-
-    private String model;
-
-    private String color;
-
-    private Integer quantity;
-
-    private String yearOfManufacture;
-
-    private VehicleType vehicleType;
-
-    private VehicleStatus vehicleStatus;
-
-    private Double price;
     public Catalog(){
         this.id=UUID.randomUUID().toString();
     }
