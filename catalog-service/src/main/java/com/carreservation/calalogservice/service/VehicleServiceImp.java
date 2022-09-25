@@ -3,6 +3,7 @@ package com.carreservation.calalogservice.service;
 
 import com.carreservation.catalogservice.entity.Vehicle;
 import com.carreservation.catalogservice.entity.VehicleStatus;
+import com.carreservation.catalogservice.repository.CatalogRepo;
 import lombok.Data;
 
 import java.util.List;
@@ -10,9 +11,11 @@ import java.util.List;
 @Data
 
 public class VehicleServiceImp implements VehicleService {
+
+    private CatalogRepo catalogRepo;
     @Override
     public List<Vehicle> getAllVehicle() {
-        return null;
+        return catalogRepo.findAll();
     }
 
     @Override
