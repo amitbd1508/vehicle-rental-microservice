@@ -1,4 +1,4 @@
-package com.carreservation.calalogservice.service;
+package com.carreservation.catalogservice.service;
 
 import com.carreservation.catalogservice.entity.Vehicle;
 import com.carreservation.catalogservice.entity.VehicleStatus;
