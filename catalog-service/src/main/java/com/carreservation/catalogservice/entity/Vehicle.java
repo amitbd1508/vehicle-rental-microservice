@@ -8,9 +8,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Document("vehicle")
+@Document("Vehicle")
 @Data
-public class vehicle {
+public class Vehicle {
     @Id
     private String id;
 
