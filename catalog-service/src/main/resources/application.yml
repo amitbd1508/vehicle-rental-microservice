@@ -1,24 +1,29 @@
-
-
-
 server:
   port: 8080
 spring:
-  kafka.properties.sasl.mechanism=PLAIN
-  kafka.properties.bootstrap.servers=pkc-3w22w.us-central1.gcp.confluent.cloud:9092
-  kafka.properties.sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule   required username='{{ CLUSTER_API_KEY }}'   password='{{ CLUSTER_API_SECRET }}';
-  kafka.properties.security.protocol=SASL_SSL
-  application:
-    name: account-service
+  kafka:
+    consumer:
+      bootstrap-servers:
+      group-id: group_Id
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer:  org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      bootstrap-servers:
+      key-serializer:  org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
-  data:
-    mongodb:
-      uri: mongodb+srv://reservation-admin:DQ53QNzEbDlKGtHb@cluster0.10ffeuz.mongodb.net/?retryWrites=true&w=majority
-      database: dev-catalog
+application:
+  name: account-service
+
+data:
+  mongodb:
+    uri: mongodb+srv://reservation-admin:DQ53QNzEbDlKGtHb@cluster0.10ffeuz.mongodb.net/?retryWrites=true&w=majority
+    database: dev-catalog
 
 jwt:
   expiry: 300000
   secret: top-secret
 
-spring.
+
 

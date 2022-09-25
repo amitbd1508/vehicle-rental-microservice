@@ -1,6 +1,5 @@
 package com.carreservation.catalogservice.repository;
 
-import com.carreservation.catalogservice.entity.Catalog;
 import com.carreservation.catalogservice.entity.Vehicle;
 import org.springframework.data.mongodb.repository.MongoRepository;
 

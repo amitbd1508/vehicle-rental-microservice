@@ -18,24 +18,14 @@ public class Vehicle {
     private String id;
     private String catalogName;
     private String plateNumber;
-
     private String brand;
-
     private String model;
-
     private String color;
-
     private Integer quantity;
-
     private String yearOfManufacture;
-
     private VehicleType vehicleType;
-
     private VehicleStatus vehicleStatus;
-
     private Double price;
-
-
     public Vehicle(){
         this.id= UUID.randomUUID().toString();
     }

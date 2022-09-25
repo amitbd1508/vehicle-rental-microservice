@@ -16,23 +16,19 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VehicleServiceImp implements VehicleService {
-
     private CatalogRepo catalogRepo;
     @Override
     public List<Vehicle> getAllVehicle() {
         return catalogRepo.findAll();
     }
-
     @Override
     public List<Vehicle> getVehicleByBrand(String brand) {
         return catalogRepo.getByBrand(brand);
     }
-
     @Override
     public List<Vehicle> getVehicleByModel(String model) {
         return catalogRepo.getByModel(model);
     }
-
     @Override
     public Vehicle getVehicleById(Integer vehicleId) {
         return catalogRepo.findById(vehicleId).get();
@@ -47,7 +43,7 @@ public class VehicleServiceImp implements VehicleService {
     public Vehicle updateVehicle(Integer vehicleId, Vehicle vehicle) {
         if(catalogRepo.findById(vehicleId).isPresent())
         {
-            vehicle.setId(vehicleId);
+            vehicle.setId(String.valueOf(vehicleId));
         }
 
         return catalogRepo.save(vehicle);
