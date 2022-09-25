@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+@EnableKafka
 public class SpringKafkaConfig {
     @Bean
     public ProducerFactory<String, Object> producerFactory() {
@@ -30,7 +31,11 @@ public class SpringKafkaConfig {
         configMap.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConfig.KAFKA_LOCAL_SERVER_CONFIG);
         configMap.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configMap.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-        configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.carreservation.entity");
+        // additional props
+        configMap.put("sasl.mechanism", "PLAIN");
+        configMap.put("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule   required username='DZVQ5N4IGPVHI2TP'   password='RL/3kOXiq8eHHWAHSz4DsueV7Y3QQ3Cev3Le8aZeBajvHQARG3OmlPy8A93HF/CF';");
+        configMap.put("security.protocol", "SASL_SSL");
+        configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.carreservation.catalogservice.entity");
         return new DefaultKafkaProducerFactory<String, Object>(configMap);
     }
 
@@ -38,6 +43,7 @@ public class SpringKafkaConfig {
     public KafkaTemplate<String, Object> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
+
 
     @Bean
     public ConsumerFactory<String, Vehicle> consumerFactory() {
@@ -57,4 +63,5 @@ public class SpringKafkaConfig {
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
+
 }
