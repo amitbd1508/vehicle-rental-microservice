@@ -4,13 +4,17 @@ package com.carreservation.calalogservice.service;
 import com.carreservation.catalogservice.entity.Vehicle;
 import com.carreservation.catalogservice.entity.VehicleStatus;
 import com.carreservation.catalogservice.repository.CatalogRepo;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Data
-
+@Service
+@NoArgsConstructor
+@AllArgsConstructor
 public class VehicleServiceImp implements VehicleService {
 
     private CatalogRepo catalogRepo;
