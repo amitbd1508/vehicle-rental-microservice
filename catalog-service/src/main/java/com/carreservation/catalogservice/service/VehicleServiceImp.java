@@ -8,6 +8,8 @@ import com.carreservation.catalogservice.service.VehicleService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,13 +19,17 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VehicleServiceImp implements VehicleService {
+
+    @Autowired
     private CatalogRepo catalogRepo;
+
     @Override
     public List<Vehicle> getAllVehicle() {
         return catalogRepo.findAll();
     }
     @Override
     public List<Vehicle> getVehicleByBrand(String brand) {
+        Criteria caseInsensitive = Criteria.where("brand").regex(brand, "i");
         return catalogRepo.getByBrand(brand);
     }
     @Override

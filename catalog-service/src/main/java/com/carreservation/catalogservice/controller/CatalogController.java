@@ -2,7 +2,7 @@ package com.carreservation.catalogservice.controller;
 
 
 import com.carreservation.catalogservice.entity.Vehicle;
-import com.carreservation.catalogservice.repository.CatalogRepo;
+import com.carreservation.catalogservice.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,28 +13,19 @@ import java.util.List;
 public class CatalogController {
 
     @Autowired
-    private CatalogRepo catalogRepo;
+    private VehicleService vehicleService;
 
     @GetMapping("/all")
-    public List<Vehicle> getAllVehicle(){
-        return catalogRepo.findAll();
+    public List<Vehicle> getAllVehicle() {
+        return vehicleService.getAllVehicle();
     }
 
-
-    //@RequestMapping(value = "/carcatalog/{brand}/)
-
-//    @RequestMapping(value = "/{brand}", method = RequestMethod.GET)
-//    public @ResponseBody List getItem(@RequestParam("brand") String brand) {
-//
-//        public List<Vehicle> getVehicleByBrand (@PathVariable String brand){
-//            return catalogRepo.getByBrand(brand);
-//        }
-
-//
-//    @GetMapping(value = "/{id}")
-//    public Vehicle getVehicleById(@PathVariable String Id){
-//        return catalogRepo.getVehicleById(Id);
-//    }
-
-
+    @GetMapping("/getvehiclebybrand/{brand}")
+    public List<Vehicle> getVehicleByBrand(@PathVariable String brand) {
+        return vehicleService.getVehicleByBrand(brand);
     }
+
+}
+
+
+
