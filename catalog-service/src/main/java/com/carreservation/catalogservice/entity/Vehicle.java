@@ -5,15 +5,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.stereotype.Repository;
+
+import java.util.UUID;
 
 @AllArgsConstructor
-@NoArgsConstructor
-@Document("Vehicle")
+@Repository
+@Document("catalog")
 @Data
 public class Vehicle {
     @Id
-    private Integer id;
-
+    private String id;
+    private String catalogName;
     private String plateNumber;
 
     private String brand;
@@ -31,4 +34,9 @@ public class Vehicle {
     private VehicleStatus vehicleStatus;
 
     private Double price;
+
+
+    public Vehicle(){
+        this.id= UUID.randomUUID().toString();
+    }
 }

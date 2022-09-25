@@ -1,3 +1,4 @@
+/*
 package com.carreservation.catalogservice.entity;
 
 import lombok.AllArgsConstructor;
@@ -23,3 +24,4 @@ public class Catalog {
         this.id=UUID.randomUUID().toString();
     }
 }
+*/

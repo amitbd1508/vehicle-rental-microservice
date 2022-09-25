@@ -1,6 +1,6 @@
 package com.carreservation.catalogservice.controller;
 
-import com.carreservation.catalogservice.entity.Catalog;
+import com.carreservation.catalogservice.entity.Vehicle;
 import com.carreservation.catalogservice.kafka.KafkaConfig;
 import com.carreservation.catalogservice.repository.CatalogRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +18,14 @@ public class HelloController {
     private CatalogRepo catalogRepo;
     @GetMapping
     public String Get(){
-        Catalog ct= new Catalog();
-        ct.setName("Rony");
-        catalogRepo.save(ct);
+        Vehicle vc= new Vehicle();
+        vc.setCatalogName("Rony");
+        catalogRepo.save(vc);
         return "Hello from the catalog";
     }
 
     @GetMapping("/all")
-    public List<Catalog> GetAll(){
+    public List<Vehicle> GetAll(){
         return catalogRepo.findAll();
     }
 
@@ -36,8 +36,8 @@ public class HelloController {
     public String sendMessage() {
 
         try {
-            Catalog ct= new Catalog();
-            ct.setName("Kafka testing");
+            Vehicle ct= new Vehicle();
+            ct.setCatalogName("Kafka testing");
             kafkaTemplate.send(KafkaConfig.TOPIC_NAME, ct);
         } catch (Exception e) {
             e.printStackTrace();
