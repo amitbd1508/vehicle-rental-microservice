@@ -11,6 +11,8 @@
   <modules>
       <module>account-service</module>
       <module>catalog-service</module>
+      <module>reservation-service</module>
+
   </modules>
 
 
