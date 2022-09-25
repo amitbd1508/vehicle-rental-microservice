@@ -8,18 +8,16 @@ import java.util.List;
 public interface VehicleService {
     List<Vehicle> getAllVehicle();
 
-    List<Vehicle> getVehicleByBrand();
+    List<Vehicle> getVehicleByBrand(String brand);
 
-    List<Vehicle> getVehicleByModel();
+    List<Vehicle> getVehicleByModel(String model);
 
-    Vehicle getVehicleById(String vehicleId);
-
-    Vehicle getVehicleByPlateNumber(String plateNumber);
+    Vehicle getVehicleById(Integer vehicleId);
 
     Vehicle addVehicle(Vehicle vehicle);
-    Vehicle updateVehicle(String vehicleId,  Vehicle vehicle);
-    Vehicle updateVehicleStatus(String vehicleId, VehicleStatus vehicleStatus);
-    void deleteVehicle(String vehicleId, Vehicle vehicle);
+    Vehicle updateVehicle(Integer vehicleId,  Vehicle vehicle);
+    Vehicle updateVehicleStatus(Integer vehicleId, VehicleStatus vehicleStatus);
+    void deleteVehicle(Integer vehicleId, Vehicle vehicle);
 
 
 
