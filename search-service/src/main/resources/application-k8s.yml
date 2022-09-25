@@ -1,6 +1,5 @@
-
 server:
-  port: 8086
+  port: ${SERVER_PORT}
 spring:
   application:
     name: search-service
