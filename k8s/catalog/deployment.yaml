@@ -16,50 +16,42 @@ spec:
     spec:
       containers:
         - name: account
-          image: amitbd1508/car-account-service:2.5
+          image: amitbd1508/vehicle-account-service:1.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
           env: # Setting Environment Variables
-            - name: PRODUCT_URL
-              value: http://product-svc:8080/products/
-
-            - name: DB_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: account-app-config
-                  key: db_url
-
-            - name: DB_PORT
-              value: "3306"
-
             - name: SERVER_PORT
               value: "8080"
 
             - name: DB_NAME  # Setting Database name from configMap
               valueFrom:
                 configMapKeyRef:
-                  name: accountdb-config
-                  key: dbName
-
+                  name: catalog-app-config
+                  key: db-name
+            - name: KAFKA_BOOTSTRAP_SERVER  # Setting Database name from configMap
+              valueFrom:
+                configMapKeyRef:
+                  name: kafka-config
+                  key: bootstrap-server
             - name: DB_USERNAME  # Setting Database username from Secret
               valueFrom:
                 secretKeyRef:
-                  name: accountdb-secrets
+                  name: mongo-config
                   key: username
 
             - name: DB_PASSWORD # Setting Database password from Secret
               valueFrom:
                 secretKeyRef:
-                  name: accountdb-secrets
+                  name: mongo-secret
                   key: password
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: account-app-secret
+                  name: catalog-app-secret
                   key: jwt-secret
             - name: JWT_EXPIRY
               valueFrom:
                 configMapKeyRef:
-                  name: account-app-config
+                  name: catalog-app-config
                   key: jwt_expire
