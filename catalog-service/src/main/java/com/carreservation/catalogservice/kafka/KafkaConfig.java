@@ -5,7 +5,14 @@ import org.springframework.beans.factory.annotation.Value;
 public class KafkaConfig {
 
   @Value("kafka.bootstrap.servers")
-  public static final String KAFKA_LOCAL_SERVER_CONFIG = "pkc-3w22w.us-central1.gcp.confluent.cloud:9092";
+  public static String KAFKA_LOCAL_SERVER_CONFIG;
+
+  @Value("kafka.username")
+  public static String username;
+
+  @Value("kafka.password")
+  public static String password;
+
   public static final String GROUP_ID_STRING = "group-id-string-1";
   public static final String TOPIC_NAME = "catalog";
   public static final String KAFKA_LISTENER_CONTAINER_FACTORY = "kafkaListenerContainerFactory";

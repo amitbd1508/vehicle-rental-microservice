@@ -1,6 +1,5 @@
 package com.carreservation.catalogservice.kafka;
 
-import com.carreservation.catalogservice.entity.Catalog;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +29,7 @@ public class MyConsumerConfig {
 
         // additional props
         props.put("sasl.mechanism", "PLAIN");
-        props.put("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule   required username='DZVQ5N4IGPVHI2TP'   password='RL/3kOXiq8eHHWAHSz4DsueV7Y3QQ3Cev3Le8aZeBajvHQARG3OmlPy8A93HF/CF';");
+        props.put("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule   required username='"+KafkaConfig.username+"'   password='"+KafkaConfig.password+"';");
         props.put("security.protocol", "SASL_SSL");
 
 

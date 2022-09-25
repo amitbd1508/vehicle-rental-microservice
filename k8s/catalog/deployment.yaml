@@ -29,12 +29,24 @@ spec:
                 configMapKeyRef:
                   name: catalog-app-config
                   key: db-name
-            - name: KAFKA_BOOTSTRAP_SERVER  # Setting Database name from configMap
+            - name: KAFKA_BOOTSTRAP_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: kafka-config
                   key: bootstrap-server
-            - name: DB_USERNAME  # Setting Database username from Secret
+            - name: KAFKA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: kafka-secret
+                  key: password
+            - name: KAFKA_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: kafka-secret
+                  key: username
+
+
+            - name: DB_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: mongo-config
