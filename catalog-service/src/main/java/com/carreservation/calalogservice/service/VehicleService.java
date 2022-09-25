@@ -11,6 +11,18 @@ public interface VehicleService {
 
     List<Vehicle> getVehicleByModel();
 
+    Vehicle getVehicleById(String vehicleId);
+
+    Vehicle getVehicleByPlateNumber(String plateNumber);
+
+    Vehicle addVehicle(Vehicle vehicle);
+    Vehicle updateVehicle(String vehicleId,  Vehicle vehicle);
+
+
+
+
+
+
 
 
 }
