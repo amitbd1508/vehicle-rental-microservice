@@ -1,9 +1,10 @@
-package com.carreservation.calalogservice.service;
+package com.carreservation.catalogservice.service.impl;
 
 
 import com.carreservation.catalogservice.entity.Vehicle;
 import com.carreservation.catalogservice.entity.VehicleStatus;
 import com.carreservation.catalogservice.repository.CatalogRepo;
+import com.carreservation.catalogservice.service.VehicleService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
