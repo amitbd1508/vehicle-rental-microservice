@@ -1,0 +1,20 @@
+server:
+  port: ${SERVER_PORT}
+spring:
+  application:
+    name: catalog-service
+  data:
+    mongodb:
+      uri: mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.10ffeuz.mongodb.net/?retryWrites=true&w=majority
+      database: ${DB_NAME}
+
+kafka:
+  bootstrap.servers: ${KAFKA_BOOTSTRAP_SERVER}
+  username: ${KAFKA_USERNAME}
+  password: ${KAFKA_PASSWORD}
+
+jwt:
+  expiry: ${JWT_EXPIRY}
+  secret: ${JWT_SECRET}
+
+

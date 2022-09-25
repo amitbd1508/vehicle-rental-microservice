@@ -1,62 +1,69 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: account
+  name: reservation
   labels:
-    app: account
+    app: reservation
 spec:
   selector:
     matchLabels:
-      app: account
+      app: reservation
   replicas: 1
   template:
     metadata:
       labels:
-        app: account
+        app: reservation
     spec:
       containers:
-        - name: account
-          image: amitbd1508/rental-account-service:1.0
+        - name: reservation
+          image: amitbd1508/rental-reservation-service:1.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
           env: # Setting Environment Variables
-            - name: DB_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: account-app-config
-                  key: db_url
-
-            - name: DB_PORT
-              value: "3306"
-
             - name: SERVER_PORT
               value: "8080"
 
             - name: DB_NAME  # Setting Database name from configMap
               valueFrom:
                 configMapKeyRef:
-                  name: accountdb-config
-                  key: dbName
-
-            - name: DB_USERNAME  # Setting Database username from Secret
+                  name: reservation-app-config
+                  key: db-name
+            - name: KAFKA_BOOTSTRAP_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: kafka-config
+                  key: bootstrap-server
+            - name: KAFKA_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: accountdb-secrets
+                  name: kafka-secret
+                  key: password
+            - name: KAFKA_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: kafka-secret
+                  key: username
+
+
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-config
                   key: username
 
             - name: DB_PASSWORD # Setting Database password from Secret
               valueFrom:
                 secretKeyRef:
-                  name: accountdb-secrets
+                  name: mongo-secret
                   key: password
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: account-app-secret
+                  name: reservation-app-secret
                   key: jwt-secret
             - name: JWT_EXPIRY
               valueFrom:
                 configMapKeyRef:
-                  name: account-app-config
+                  name: reservation-app-config
                   key: jwt_expire

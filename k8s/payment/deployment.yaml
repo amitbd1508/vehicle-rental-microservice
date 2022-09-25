@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: account
+  name: payment
   labels:
-    app: account
+    app: payment
 spec:
   selector:
     matchLabels:
-      app: account
+      app: payment
   replicas: 1
   template:
     metadata:
       labels:
-        app: account
+        app: payment
     spec:
       containers:
-        - name: account
-          image: amitbd1508/rental-account-service:1.0
+        - name: payment
+          image: amitbd1508/rental-payment-service:1.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -24,7 +24,7 @@ spec:
             - name: DB_URL
               valueFrom:
                 configMapKeyRef:
-                  name: account-app-config
+                  name: payment-app-config
                   key: db_url
 
             - name: DB_PORT
@@ -36,27 +36,27 @@ spec:
             - name: DB_NAME  # Setting Database name from configMap
               valueFrom:
                 configMapKeyRef:
-                  name: accountdb-config
+                  name: paymentdb-config
                   key: dbName
 
             - name: DB_USERNAME  # Setting Database username from Secret
               valueFrom:
                 secretKeyRef:
-                  name: accountdb-secrets
+                  name: paymentdb-secrets
                   key: username
 
             - name: DB_PASSWORD # Setting Database password from Secret
               valueFrom:
                 secretKeyRef:
-                  name: accountdb-secrets
+                  name: paymentdb-secrets
                   key: password
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: account-app-secret
+                  name: payment-app-secret
                   key: jwt-secret
             - name: JWT_EXPIRY
               valueFrom:
                 configMapKeyRef:
-                  name: account-app-config
+                  name: payment-app-config
                   key: jwt_expire

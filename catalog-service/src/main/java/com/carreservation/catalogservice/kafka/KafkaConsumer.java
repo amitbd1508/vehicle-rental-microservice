@@ -1,12 +1,6 @@
 package com.carreservation.catalogservice.kafka;
 
-import com.carreservation.catalogservice.entity.Catalog;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
-
-import java.util.logging.Logger;
 
 @Component
 public class KafkaConsumer {

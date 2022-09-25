@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: catalog-svc
+  name: reservation-svc
 spec:
   selector:
-    app: catalog
+    app: reservation
   ports:
     - protocol: TCP
       port: 8080
