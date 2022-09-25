@@ -5,12 +5,13 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface CatalogRepo extends MongoRepository<Vehicle, Integer> {
+public interface CatalogRepo extends MongoRepository<Vehicle, String> {
     List<Vehicle> getByBrand(
             String brand
     );
 
-    List<Vehicle> getByModel(
-            String model
-    );
-}
+    List<Vehicle> getByModel(String model);
+
+    Vehicle getVehicleById(String vehicleId);
+
+    }

@@ -1,4 +1,4 @@
-package com.carreservation.catalogservice.service.impl;
+package com.carreservation.catalogservice.service;
 
 
 import com.carreservation.catalogservice.entity.Vehicle;
@@ -31,27 +31,26 @@ public class VehicleServiceImp implements VehicleService {
         return catalogRepo.getByModel(model);
     }
     @Override
-    public Vehicle getVehicleById(Integer vehicleId) {
+    public Vehicle getVehicleById(String vehicleId) {
         return catalogRepo.findById(vehicleId).get();
     }
-
     @Override
     public Vehicle addVehicle(Vehicle vehicle) {
         return catalogRepo.save(vehicle);
     }
 
     @Override
-    public Vehicle updateVehicle(Integer vehicleId, Vehicle vehicle) {
+    public Vehicle updateVehicle(String vehicleId, Vehicle vehicle) {
         if(catalogRepo.findById(vehicleId).isPresent())
         {
-            vehicle.setId(String.valueOf(vehicleId));
+            vehicle.setId(vehicleId);
         }
 
         return catalogRepo.save(vehicle);
     }
 
     @Override
-    public Vehicle updateVehicleStatus(Integer vehicleId, VehicleStatus vehicleStatus) {
+    public Vehicle updateVehicleStatus(String vehicleId, VehicleStatus vehicleStatus) {
 
         if (catalogRepo.findById(vehicleId).isPresent())
         {
@@ -61,7 +60,7 @@ public class VehicleServiceImp implements VehicleService {
     }
 
     @Override
-    public void deleteVehicle(Integer vehicleId, Vehicle vehicle) {
+    public void deleteVehicle(String vehicleId, Vehicle vehicle) {
         catalogRepo.deleteById(vehicleId);
     }
 }
