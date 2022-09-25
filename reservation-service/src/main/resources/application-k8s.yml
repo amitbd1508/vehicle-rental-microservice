@@ -2,4 +2,4 @@ server:
   port: ${SERVER_PORT}
 spring:
   application:
-    name: notification-service
+    name: reservation-service
