@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: account
+  name: catalog
   labels:
-    app: account
+    app: catalog
 spec:
   selector:
     matchLabels:
-      app: account
+      app: catalog
   replicas: 1
   template:
     metadata:
       labels:
-        app: account
+        app: catalog
     spec:
       containers:
-        - name: account
-          image: amitbd1508/vehicle-account-service:1.0
+        - name: catalog
+          image: amitbd1508/rental-catalog-service:1.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
