@@ -12,8 +12,7 @@ public interface CatalogRepo extends MongoRepository<Vehicle, String> {
             String brand
     );
 
+
+    @Query(value = "{'model': {$regex : ?0, $options: 'i'}}")
     List<Vehicle> getByModel(String model);
-
-    Vehicle getVehicleById(String vehicleId);
-
     }

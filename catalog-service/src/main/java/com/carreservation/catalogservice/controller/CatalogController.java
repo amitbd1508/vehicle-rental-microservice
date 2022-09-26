@@ -20,11 +20,16 @@ public class CatalogController {
         return vehicleService.getAllVehicle();
     }
 
-    @GetMapping("/getvehiclebybrand/{brand}")
+    @GetMapping("/bybrand/{brand}")
     public List<Vehicle> getVehicleByBrand(@PathVariable String brand) {
         return vehicleService.getVehicleByBrand(brand);
     }
 
+
+    @GetMapping("/bymodel/{model}")
+    public List<Vehicle> getVehicleByModel(@PathVariable String model) {
+        return vehicleService.getVehicleByModel(model);
+    }
 }
 
 
