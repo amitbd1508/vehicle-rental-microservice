@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PaymentServiceImpl implements PaymentService{
 
-    @Autowired
+    //@Autowired
     PaymentRepository paymentRepository;
 
     @Override

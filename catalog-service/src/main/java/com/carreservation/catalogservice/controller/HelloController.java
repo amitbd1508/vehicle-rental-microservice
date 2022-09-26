@@ -38,7 +38,7 @@ public class HelloController {
         try {
             Vehicle ct= new Vehicle();
             ct.setCatalogName("Kafka testing");
-            kafkaTemplate.send(KafkaConfig.TOPIC_NAME, ct);
+            kafkaTemplate.send(KafkaConfig.TOPIC_NAME, "");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,20 +1,11 @@
 package com.carreservation.paymentservice.kafka;
 
-import lombok.Value;
-
 public class KafkaConfig {
-
-    @Value("kafka.bootstrap.servers")
-    public static String KAFKA_LOCAL_SERVER_CONFIG;
-
-    @Value("kafka.username")
-    public static String username;
-
-    @Value("kafka.password")
-    public static String password;
-
+    // required username='DZVQ5N4IGPVHI2TP'   password='RL/3kOXiq8eHHWAHSz4DsueV7Y3QQ3Cev3Le8aZeBajvHQARG3OmlPy8A93HF/CF'
+    public static final String KAFKA_LOCAL_SERVER_CONFIG = "pkc-3w22w.us-central1.gcp.confluent.cloud:9092";
     public static final String GROUP_ID_STRING = "group-id-string-1";
-    public static final String TOPIC_NAME = "payment";
-    public static final String KAFKA_LISTENER_CONTAINER_FACTORY = "kafkaListenerContainerFactory";
+    public static final String TOPIC_NAME = "catalog";
     public static final String GROUP_ID_JSON = "group-id-json-1";
+    public static final String USER_NAME="DZVQ5N4IGPVHI2TP";
+    public static final String PASSWORD="RL/3kOXiq8eHHWAHSz4DsueV7Y3QQ3Cev3Le8aZeBajvHQARG3OmlPy8A93HF/CF";
 }
