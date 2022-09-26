@@ -1,4 +1,4 @@
-package com.carreservation.accountservice.config;
+package com.carreservation.catalogservice.config;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -6,10 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping;
-import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.*;
-import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.RequestHandlerProvider;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.WebMvcRequestHandler;
@@ -62,7 +60,7 @@ public class SwaggerConfiguration {
       )
       .apiInfo(apiInfo())
       .select()
-      .apis(RequestHandlerSelectors.basePackage("com.carreservation.accountservice.controller"))
+      .apis(RequestHandlerSelectors.basePackage("com.carreservation.catalogservice.controller"))
       .build();
   }
 

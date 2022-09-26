@@ -1,7 +1,7 @@
 package com.carreservation.accountservice.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.carreservation.accountservice.entity.Account;
+import com.carreservation.accountservice.model.entity.Account;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,6 +1,6 @@
 package com.carreservation.accountservice.repo;
 
-import com.carreservation.accountservice.entity.PaymentMethod;
+import com.carreservation.accountservice.model.entity.PaymentMethod;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

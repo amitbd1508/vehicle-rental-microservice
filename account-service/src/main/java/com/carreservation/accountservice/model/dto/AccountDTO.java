@@ -1,7 +1,7 @@
-package com.carreservation.accountservice.dto;
+package com.carreservation.accountservice.model.dto;
 
-import com.carreservation.accountservice.entity.Address;
-import com.carreservation.accountservice.entity.PaymentMethod;
+import com.carreservation.accountservice.model.entity.Address;
+import com.carreservation.accountservice.model.entity.PaymentMethod;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

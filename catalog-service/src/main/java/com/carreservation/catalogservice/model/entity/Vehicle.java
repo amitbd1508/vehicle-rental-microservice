@@ -1,8 +1,7 @@
-package com.carreservation.catalogservice.entity;
+package com.carreservation.catalogservice.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Repository;
@@ -28,18 +27,5 @@ public class Vehicle {
     private Double price;
     public Vehicle(){
         this.id= UUID.randomUUID().toString();
-    }
-
-    public Vehicle(String catalogName, String plateNumber, String brand, String model, String color, Integer quantity, String yearOfManufacture, VehicleType vehicleType, VehicleStatus vehicleStatus, Double price) {
-        this.catalogName = catalogName;
-        this.plateNumber = plateNumber;
-        this.brand = brand;
-        this.model = model;
-        this.color = color;
-        this.quantity = quantity;
-        this.yearOfManufacture = yearOfManufacture;
-        this.vehicleType = vehicleType;
-        this.vehicleStatus = vehicleStatus;
-        this.price = price;
     }
 }
