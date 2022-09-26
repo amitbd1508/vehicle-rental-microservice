@@ -1,0 +1,63 @@
+apiVersion: skaffold/v2beta16
+kind: Config
+metadata:
+  name: vehicle-rental-microservice
+build:
+  artifacts:
+  - image: amitbd1508/rental-account-service
+    context: account-service
+    docker:
+      dockerfile: Dockerfile
+  - image: amitbd1508/rental-catalog-service
+    context: catalog-service
+    docker:
+      dockerfile: Dockerfile
+  - image: amitbd1508/rental-notification-service
+    context: notification-service
+    docker:
+      dockerfile: Dockerfile
+  - image: amitbd1508/rental-payment-service
+    context: payment-service
+    docker:
+      dockerfile: Dockerfile
+  - image: amitbd1508/rental-reservation-service
+    context: reservation-service
+    docker:
+      dockerfile: Dockerfile
+  - image: amitbd1508/rental-search-service
+    context: search-service
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - k8s/common/kafka-config.yaml
+    - k8s/common/kafka-secret.yml
+    - k8s/common/mongo-config.yaml
+    - k8s/common/mongo-secret.yml
+    - k8s/account/config.yaml
+    - k8s/account/db-deployment.yaml
+    - k8s/account/deployment.yaml
+    - k8s/account/secret.yaml
+    - k8s/account/service.yaml
+    - k8s/catalog/config.yaml
+    - k8s/catalog/deployment.yaml
+    - k8s/catalog/secret.yaml
+    - k8s/catalog/service.yaml
+    - k8s/notification/config.yaml
+    - k8s/notification/deployment.yaml
+    - k8s/notification/secret.yaml
+    - k8s/notification/service.yaml
+    - k8s/payment/config.yaml
+    - k8s/payment/db-deployment.yaml
+    - k8s/payment/deployment.yaml
+    - k8s/payment/secret.yaml
+    - k8s/payment/service.yaml
+    - k8s/reservation/config.yaml
+    - k8s/reservation/deployment.yaml
+    - k8s/reservation/secret.yaml
+    - k8s/reservation/service.yaml
+    - k8s/search/config.yaml
+    - k8s/search/deployment.yaml
+    - k8s/search/secret.yaml
+    - k8s/search/service.yaml

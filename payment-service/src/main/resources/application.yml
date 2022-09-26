@@ -1,19 +1,9 @@
 
-
-
 server:
-  port: 8080
+  port: 8086
 spring:
-#  kafka:
-#    properties:
-#      bootstrap.servers: pkc-3w22w.us-central1.gcp.confluent.cloud:9092
-#      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule   required username='DZVQ5N4IGPVHI2TP'   password='RL/3kOXiq8eHHWAHSz4DsueV7Y3QQ3Cev3Le8aZeBajvHQARG3OmlPy8A93HF/CF';
-#      security.protocol: SASL_SSL
-#      sasl.mechanism: PLAIN
-
-
   application:
-    name: account-service
+    name: payment-service
 
   data:
     mongodb:
@@ -29,3 +19,5 @@ kafka:
     password: RL/3kOXiq8eHHWAHSz4DsueV7Y3QQ3Cev3Le8aZeBajvHQARG3OmlPy8A93HF/CF
     sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule   required username='DZVQ5N4IGPVHI2TP'   password='RL/3kOXiq8eHHWAHSz4DsueV7Y3QQ3Cev3Le8aZeBajvHQARG3OmlPy8A93HF/CF';
     security.protocol: SASL_SSL
+
+
