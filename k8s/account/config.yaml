@@ -4,5 +4,4 @@ metadata:
   name: account-app-config
 data:
   db_url: account-db-service
-  topic-name: topic
   jwt_expire: "3600000"

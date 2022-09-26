@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment
+  labels:
+    app: payment
+spec:
+  selector:
+    matchLabels:
+      app: payment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: payment
+    spec:
+      containers:
+        - name: payment
+          image: amitbd1508/rental-payment-service:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env: # Setting Environment Variables
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: payment-app-config
+                  key: db_url
+
+            - name: DB_PORT
+              value: "3306"
+
+            - name: SERVER_PORT
+              value: "8080"
+
+            - name: DB_NAME  # Setting Database name from configMap
+              valueFrom:
+                configMapKeyRef:
+                  name: paymentdb-config
+                  key: dbName
+
+            - name: DB_USERNAME  # Setting Database username from Secret
+              valueFrom:
+                secretKeyRef:
+                  name: paymentdb-secrets
+                  key: username
+
+            - name: DB_PASSWORD # Setting Database password from Secret
+              valueFrom:
+                secretKeyRef:
+                  name: paymentdb-secrets
+                  key: password
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: payment-app-secret
+                  key: jwt-secret
+            - name: JWT_EXPIRY
+              valueFrom:
+                configMapKeyRef:
+                  name: payment-app-config
+                  key: jwt_expire

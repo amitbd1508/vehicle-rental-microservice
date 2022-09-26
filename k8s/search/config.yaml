@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: search-app-config
+data:
+  db-name: searchdb
+  jwt_expire: "3600000"

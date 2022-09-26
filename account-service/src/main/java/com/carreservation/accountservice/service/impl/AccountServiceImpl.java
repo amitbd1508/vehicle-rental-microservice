@@ -1,13 +1,13 @@
 package com.carreservation.accountservice.service.impl;
 
-import com.carreservation.accountservice.dto.AccountDTO;
-import com.carreservation.accountservice.dto.AccountRegistrationDTO;
-import com.carreservation.accountservice.dto.LoginDTO;
+import com.carreservation.accountservice.model.dto.AccountDTO;
+import com.carreservation.accountservice.model.dto.AccountRegistrationDTO;
+import com.carreservation.accountservice.model.dto.LoginDTO;
 import com.carreservation.accountservice.repo.AccountRepo;
 import com.carreservation.accountservice.repo.PaymentMethodRepo;
 import com.carreservation.accountservice.service.AccountService;
-import com.carreservation.accountservice.entity.Account;
-import com.carreservation.accountservice.entity.PaymentMethod;
+import com.carreservation.accountservice.model.entity.Account;
+import com.carreservation.accountservice.model.entity.PaymentMethod;
 import com.carreservation.accountservice.security.JwtHelper;
 import org.json.simple.JSONObject;
 import org.modelmapper.ModelMapper;

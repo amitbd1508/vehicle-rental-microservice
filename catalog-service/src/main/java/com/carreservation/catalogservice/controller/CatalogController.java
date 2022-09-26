@@ -16,32 +16,36 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/carcatalog")
+@RequestMapping("/catalogs")
 public class CatalogController {
 
-    @Autowired
-    private VehicleService vehicleService;
+  @Autowired
+  private VehicleService vehicleService;
 
-    @GetMapping("/all")
-    public Page<Vehicle> getAllVehicle(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
-        return vehicleService.getAllVehicle(page, size);
-    }
+  @PostMapping()
+  public ResponseEntity<Object> addVehicle(@RequestBody VehicleRequestDto vehicleRequestDto) {
+    return  ResponseEntity.ok(vehicleService.addVehicle(vehicleRequestDto));
+  }
+  @GetMapping()
+  public Page<Vehicle> getAllVehicle(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
+    return vehicleService.getAllVehicle(page, size);
+  }
 
-    @GetMapping("/bybrand/{brand}")
-    public Page<Vehicle> getVehicleByBrand(@PathVariable String brand, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
-        return vehicleService.getVehicleByBrand(brand, page, size);
-    }
+  @GetMapping("/bybrand/{brand}")
+  public Page<Vehicle> getVehicleByBrand(@PathVariable String brand, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
+    return vehicleService.getVehicleByBrand(brand, page, size);
+  }
 
 
-    @GetMapping("/bymodel/{model}")
-    public Page<Vehicle> getVehicleByModel(@PathVariable String model, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
-        return vehicleService.getVehicleByModel(model, page, size);
-    }
+  @GetMapping("/bymodel/{model}")
+  public Page<Vehicle> getVehicleByModel(@PathVariable String model, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
+      return vehicleService.getVehicleByModel(model, page, size);
+  }
 
-    @PostMapping("/add")
-    public Vehicle add(@Valid @RequestBody Vehicle vehicle) {
-        return vehicleService.save(vehicle);
-    }
+  @PostMapping("/add")
+  public Vehicle add(@Valid @RequestBody Vehicle vehicle) {
+      return vehicleService.save(vehicle);
+  }
 }
 
 
