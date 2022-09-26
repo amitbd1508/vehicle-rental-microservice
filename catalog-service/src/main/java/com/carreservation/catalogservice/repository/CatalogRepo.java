@@ -1,12 +1,10 @@
 package com.carreservation.catalogservice.repository;
 
-import com.carreservation.catalogservice.entity.Vehicle;
+import com.carreservation.catalogservice.model.entity.Vehicle;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
-
-import java.util.List;
 
 public interface CatalogRepo extends MongoRepository<Vehicle, String> {
 

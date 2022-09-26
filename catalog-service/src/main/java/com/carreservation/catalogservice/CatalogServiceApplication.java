@@ -1,9 +1,9 @@
 package com.carreservation.catalogservice;
 
-import org.apache.kafka.clients.producer.Producer;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class CatalogServiceApplication {
@@ -11,5 +11,9 @@ public class CatalogServiceApplication {
 		SpringApplication.run(CatalogServiceApplication.class, args);
 	}
 
+  @Bean
+  public ModelMapper modelMapper() {
+    return new ModelMapper();
+  }
 
 }
