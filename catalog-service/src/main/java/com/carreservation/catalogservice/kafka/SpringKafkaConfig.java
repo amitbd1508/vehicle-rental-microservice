@@ -33,7 +33,7 @@ public class SpringKafkaConfig {
         configMap.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         // additional props
         configMap.put("sasl.mechanism", "PLAIN");
-        configMap.put("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule   required username='DZVQ5N4IGPVHI2TP'   password='RL/3kOXiq8eHHWAHSz4DsueV7Y3QQ3Cev3Le8aZeBajvHQARG3OmlPy8A93HF/CF';");
+        configMap.put("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule   required username='"+KafkaConfig.username+"'   password='"+KafkaConfig.password+"';");
         configMap.put("security.protocol", "SASL_SSL");
         configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.carreservation.catalogservice.entity");
         return new DefaultKafkaProducerFactory<String, Object>(configMap);

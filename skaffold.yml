@@ -17,12 +17,24 @@ build:
     docker:
       dockerfile: Dockerfile
   - image: amitbd1508/rental-payment-service
+    context: payment-service
+    docker:
+      dockerfile: Dockerfile
+  - image: amitbd1508/rental-reservation-service
     context: reservation-service
+    docker:
+      dockerfile: Dockerfile
+  - image: amitbd1508/rental-search-service
+    context: search-service
     docker:
       dockerfile: Dockerfile
 deploy:
   kubectl:
     manifests:
+    - k8s/common/kafka-config.yaml
+    - k8s/common/kafka-secret.yml
+    - k8s/common/mongo-config.yaml
+    - k8s/common/mongo-secret.yml
     - k8s/account/config.yaml
     - k8s/account/db-deployment.yaml
     - k8s/account/deployment.yaml
@@ -32,10 +44,6 @@ deploy:
     - k8s/catalog/deployment.yaml
     - k8s/catalog/secret.yaml
     - k8s/catalog/service.yaml
-    - k8s/common/kafka-config.yaml
-    - k8s/common/kafka-secret.yml
-    - k8s/common/mongo-config.yaml
-    - k8s/common/mongo-secret.yml
     - k8s/notification/config.yaml
     - k8s/notification/deployment.yaml
     - k8s/notification/secret.yaml

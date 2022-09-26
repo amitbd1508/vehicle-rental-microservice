@@ -2,39 +2,37 @@ package com.carreservation.catalogservice.controller;
 
 
 import com.carreservation.catalogservice.entity.Vehicle;
-import com.carreservation.catalogservice.repository.CatalogRepo;
+import com.carreservation.catalogservice.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/carcatalog")
 public class CatalogController {
 
     @Autowired
-    private CatalogRepo catalogRepo;
+    private VehicleService vehicleService;
 
     @GetMapping("/all")
-    public List<Vehicle> getAllVehicle(){
-        return catalogRepo.findAll();
+    public Page<Vehicle> getAllVehicle(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
+        return vehicleService.getAllVehicle(page, size);
+    }
+
+    @GetMapping("/bybrand/{brand}")
+    public Page<Vehicle> getVehicleByBrand(@PathVariable String brand, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
+        return vehicleService.getVehicleByBrand(brand, page, size);
     }
 
 
-    //@RequestMapping(value = "/carcatalog/{brand}/)
-
-//    @RequestMapping(value = "/{brand}", method = RequestMethod.GET)
-//    public @ResponseBody List getItem(@RequestParam("brand") String brand) {
-//
-//        public List<Vehicle> getVehicleByBrand (@PathVariable String brand){
-//            return catalogRepo.getByBrand(brand);
-//        }
-
-//
-//    @GetMapping(value = "/{id}")
-//    public Vehicle getVehicleById(@PathVariable String Id){
-//        return catalogRepo.getVehicleById(Id);
-//    }
-
-
+    @GetMapping("/bymodel/{model}")
+    public Page<Vehicle> getVehicleByModel(@PathVariable String model, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
+        return vehicleService.getVehicleByModel(model, page, size);
     }
+}
+
+
+
