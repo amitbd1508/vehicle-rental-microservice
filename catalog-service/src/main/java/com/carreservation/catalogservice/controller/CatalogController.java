@@ -1,7 +1,7 @@
 package com.carreservation.catalogservice.controller;
 
 
-import com.carreservation.catalogservice.entity.Vehicle;
+import com.carreservation.catalogservice.model.entity.Vehicle;
 import com.carreservation.catalogservice.repository.CatalogRepo;
 import com.carreservation.catalogservice.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +22,6 @@ public class CatalogController {
   @Autowired
   private VehicleService vehicleService;
 
-  @PostMapping()
-  public ResponseEntity<Object> addVehicle(@RequestBody VehicleRequestDto vehicleRequestDto) {
-    return  ResponseEntity.ok(vehicleService.addVehicle(vehicleRequestDto));
-  }
   @GetMapping()
   public Page<Vehicle> getAllVehicle(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
     return vehicleService.getAllVehicle(page, size);
