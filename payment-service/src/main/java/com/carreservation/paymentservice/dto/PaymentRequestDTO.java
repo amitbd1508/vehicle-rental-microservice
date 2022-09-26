@@ -19,6 +19,7 @@ import lombok.NoArgsConstructor;
             return "PaymentRequestDTO{" +
                     "paymentType='" + paymentType + '\'' +
                     ", userId='" + userId + '\'' +
+                    ", queueId='" + queueId + '\'' +
                     '}';
         }
     }
