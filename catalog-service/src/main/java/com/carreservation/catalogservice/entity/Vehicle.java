@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Repository
 @Document("catalog")
 @Data
@@ -26,9 +27,6 @@ public class Vehicle {
     private VehicleType vehicleType;
     private VehicleStatus vehicleStatus;
     private Double price;
-    public Vehicle(){
-        this.id= UUID.randomUUID().toString();
-    }
 
     public Vehicle(String catalogName, String plateNumber, String brand, String model, String color, Integer quantity, String yearOfManufacture, VehicleType vehicleType, VehicleStatus vehicleStatus, Double price) {
         this.catalogName = catalogName;

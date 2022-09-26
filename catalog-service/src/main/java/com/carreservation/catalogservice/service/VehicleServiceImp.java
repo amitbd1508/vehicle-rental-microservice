@@ -73,4 +73,9 @@ public class VehicleServiceImp implements VehicleService {
     public void deleteVehicle(String vehicleId, Vehicle vehicle) {
         catalogRepo.deleteById(vehicleId);
     }
+
+    @Override
+    public Vehicle save(Vehicle vehicle) {
+        return catalogRepo.save(vehicle);
+    }
 }
