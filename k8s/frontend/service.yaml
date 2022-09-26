@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: payment-svc
+  name: frontend-svc
   annotations:
     cloud.google.com/neg: '{"ingress": true}'
 spec:
   selector:
-    app: payment
+    app: frontend
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8080
+      targetPort: 4200
   type: LoadBalancer

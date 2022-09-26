@@ -1,0 +1,68 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gxlb-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.allow-http: "true"
+spec:
+  defaultBackend:
+    service:
+      name: web
+      port:
+        number: 80
+  rules:
+    - host: "rental.amitghosh.me"
+      http:
+        paths:
+          - path: /ui
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
+          - path: /accounts
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: account-svc
+                port:
+                  number: 80
+          - path: /catalogs
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: catalog-svc
+                port:
+                  number: 80
+          - path: /notifications
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: notification-svc
+                port:
+                  number: 80
+          - path: /payments
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: payment-svc
+                port:
+                  number: 80
+          - path: /reservations
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: reservation-svc
+                port:
+                  number: 80
+          - path: /search
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: search-svc
+                port:
+                  number: 80
