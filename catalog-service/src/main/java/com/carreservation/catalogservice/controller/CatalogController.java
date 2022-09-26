@@ -4,9 +4,11 @@ package com.carreservation.catalogservice.controller;
 import com.carreservation.catalogservice.entity.Vehicle;
 import com.carreservation.catalogservice.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/carcatalog")
@@ -16,26 +18,19 @@ public class CatalogController {
     private VehicleService vehicleService;
 
     @GetMapping("/all")
-    public List<Vehicle> getAllVehicle() {
-        return vehicleService.getAllVehicle();
+    public Page<Vehicle> getAllVehicle(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
+        return vehicleService.getAllVehicle(page, size);
     }
 
     @GetMapping("/bybrand/{brand}")
-    public List<Vehicle> getVehicleByBrand(@PathVariable String brand) {
-        return vehicleService.getVehicleByBrand(brand);
+    public Page<Vehicle> getVehicleByBrand(@PathVariable String brand, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
+        return vehicleService.getVehicleByBrand(brand, page, size);
     }
 
 
     @GetMapping("/bymodel/{model}")
-    public List<Vehicle> getVehicleByModel(@PathVariable String model) {
-        return vehicleService.getVehicleByModel(model);
-    }
-
-    @GetMapping("/catalog/{pageNo}/{pageSize}")
-    public List<Vehicle> getPaginatedCountries(@PathVariable int pageNo,
-                                               @PathVariable int pageSize) {
-
-        return  VehicleService.findPaginated(pageNo, pageSize);
+    public Page<Vehicle> getVehicleByModel(@PathVariable String model, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
+        return vehicleService.getVehicleByModel(model, page, size);
     }
 }
 

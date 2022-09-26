@@ -4,47 +4,45 @@ package com.carreservation.catalogservice.service;
 import com.carreservation.catalogservice.entity.Vehicle;
 import com.carreservation.catalogservice.entity.VehicleStatus;
 import com.carreservation.catalogservice.repository.CatalogRepo;
-import com.carreservation.catalogservice.repository.PageRepo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
-import java.util.List;
+import java.util.Optional;
+
+import static com.carreservation.catalogservice.CatalogServiceConstants.SIZE;
 
 @Data
 @Service
 @NoArgsConstructor
 @AllArgsConstructor
 public class VehicleServiceImp implements VehicleService {
-
     @Autowired
     private CatalogRepo catalogRepo;
 
-    @Autowired
-    private PageRepo pageRepo;
-
     @Override
-    public List<Vehicle> getAllVehicle() {
-        return catalogRepo.findAll();
+    public Page<Vehicle> getAllVehicle(Optional<Integer> page, Optional<Integer> size) {
+        Pageable pageable = PageRequest.of(page.orElse(0), size.orElse(SIZE));
+        return catalogRepo.findAll(pageable);
     }
     @Override
-    public List<Vehicle> getVehicleByBrand(String brand) {
-        Criteria caseInsensitive = Criteria.where("brand").regex(brand, "i");
-        return catalogRepo.getByBrand(brand);
+    public Page<Vehicle> getVehicleByBrand(String brand, Optional<Integer> page, Optional<Integer> size) {
+        Pageable pageable = PageRequest.of(page.orElse(0), size.orElse(SIZE));
+        return catalogRepo.getByBrand(brand, pageable);
     }
     @Override
-    public List<Vehicle> getVehicleByModel(String model) {
-        return catalogRepo.getByModel(model);
+    public Page<Vehicle> getVehicleByModel(String model, Optional<Integer> page, Optional<Integer> size) {
+        Pageable pageable = PageRequest.of(page.orElse(0), size.orElse(SIZE));
+        return catalogRepo.getByModel(model, pageable);
     }
     @Override
     public Vehicle getVehicleById(String vehicleId) {
-        return catalogRepo.findById(vehicleId).get();
+        return catalogRepo.findById(vehicleId).orElse(null);
     }
     @Override
     public Vehicle addVehicle(Vehicle vehicle) {
@@ -74,12 +72,5 @@ public class VehicleServiceImp implements VehicleService {
     @Override
     public void deleteVehicle(String vehicleId, Vehicle vehicle) {
         catalogRepo.deleteById(vehicleId);
-    }
-
-    @Override
-    public List<Vehicle> findPaginated(int pageNo, int pageSize) {
-        Pageable paging = (Pageable) PageRequest.of(pageNo, pageSize);
-        Page<Vehicle> pagedResult = PageRepo.findAll(paging);
-        return pagedResult.toList();
     }
 }
