@@ -15,6 +15,16 @@ target/
 .springBeans
 .sts4-cache
 
+# compiled output
+/frontend-service/dist
+/frontend-service/tmp
+/frontend-service/out-tsc
+# Only exists if Bazel was run
+/frontend-service/bazel-out
+
+# dependencies
+/frontend-service/node_modules
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
