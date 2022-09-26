@@ -30,6 +30,13 @@ public class CatalogController {
     public List<Vehicle> getVehicleByModel(@PathVariable String model) {
         return vehicleService.getVehicleByModel(model);
     }
+
+    @GetMapping("/catalog/{pageNo}/{pageSize}")
+    public List<Vehicle> getPaginatedCountries(@PathVariable int pageNo,
+                                               @PathVariable int pageSize) {
+
+        return  VehicleService.findPaginated(pageNo, pageSize);
+    }
 }
 
 
