@@ -19,29 +19,35 @@ import java.util.Optional;
 @RequestMapping("/catalogs")
 public class CatalogController {
 
-  @Autowired
-  private VehicleService vehicleService;
+    @Autowired
+    private VehicleService vehicleService;
 
-  @GetMapping()
-  public Page<Vehicle> getAllVehicle(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
-    return vehicleService.getAllVehicle(page, size);
-  }
+    @GetMapping()
+    public Page<Vehicle> getAllVehicle(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
+        return vehicleService.getAllVehicle(page, size);
+    }
 
-  @GetMapping("/bybrand/{brand}")
-  public Page<Vehicle> getVehicleByBrand(@PathVariable String brand, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
-    return vehicleService.getVehicleByBrand(brand, page, size);
-  }
+    @GetMapping("/bybrand/{brand}")
+    public Page<Vehicle> getVehicleByBrand(@PathVariable String brand, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
+        return vehicleService.getVehicleByBrand(brand, page, size);
+    }
 
 
-  @GetMapping("/bymodel/{model}")
-  public Page<Vehicle> getVehicleByModel(@PathVariable String model, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
-      return vehicleService.getVehicleByModel(model, page, size);
-  }
+    @GetMapping("/bymodel/{model}")
+    public Page<Vehicle> getVehicleByModel(@PathVariable String model, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
+        return vehicleService.getVehicleByModel(model, page, size);
+    }
 
-  @PostMapping("/add")
-  public Vehicle add(@Valid @RequestBody Vehicle vehicle) {
-      return vehicleService.save(vehicle);
-  }
+
+    @GetMapping("/{vehicleId}")
+    public Vehicle getVehicleById(@PathVariable String vehicleId) {
+        return vehicleService.getVehicleById(vehicleId);
+    }
+
+    @PostMapping("/add")
+    public Vehicle add(@Valid @RequestBody Vehicle vehicle) {
+        return vehicleService.save(vehicle);
+    }
 }
 
 
