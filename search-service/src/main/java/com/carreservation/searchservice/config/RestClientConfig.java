@@ -8,10 +8,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfiguration;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
+import org.springframework.http.HttpHeaders;
 
 import java.net.URI;
 
 @Configuration
+@EnableElasticsearchRepositories(basePackages = "*")
 public class RestClientConfig extends AbstractElasticsearchConfiguration {
 
     private static final Logger logger = LoggerFactory.getLogger(RestClientConfig.class);
@@ -37,6 +40,8 @@ public class RestClientConfig extends AbstractElasticsearchConfiguration {
             builder.usingSsl();
         }
 
+        builder.withDefaultHeaders(compatibilityHeaders());
+
         // enable basic auth if specified
         String userInfo = uri.getUserInfo();
         if (userInfo != null) {
@@ -46,5 +51,13 @@ public class RestClientConfig extends AbstractElasticsearchConfiguration {
 
         logger.info("Elasticsearch server [{}:{}] ssl[{}] auth[{}]", host, port, isSsl, userInfo != null);
         return RestClients.create(builder.build()).rest();
+    }
+
+    private org.springframework.http.HttpHeaders compatibilityHeaders() {
+        HttpHeaders compatibilityHeaders = new HttpHeaders();
+        compatibilityHeaders.add("Accept", "application/vnd.elasticsearch+json;compatible-with=7");
+        compatibilityHeaders.add("Content-Type", "application/vnd.elasticsearch+json;"
+                + "compatible-with=7");
+        return compatibilityHeaders;
     }
 }
