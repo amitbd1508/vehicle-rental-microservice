@@ -1,6 +1,7 @@
 package com.carreservation.catalogservice.service.impl;
 
 
+import com.carreservation.catalogservice.kafka.KafkaConfig;
 import com.carreservation.catalogservice.model.entity.Vehicle;
 import com.carreservation.catalogservice.model.entity.VehicleStatus;
 import com.carreservation.catalogservice.repository.CatalogRepo;
@@ -9,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -16,6 +18,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -30,6 +33,10 @@ import static com.carreservation.catalogservice.util.Constants.SIZE;
 public class VehicleServiceImp implements VehicleService {
     @Autowired
     private CatalogRepo catalogRepo;
+    @Autowired
+    private ModelMapper modelMapper;
+    @Autowired
+    private KafkaTemplate<String, Vehicle> kafkaTemplate;
 
     @Override
     @Cacheable(cacheNames="vehicles")
@@ -81,8 +88,10 @@ public class VehicleServiceImp implements VehicleService {
     @Override
     public Vehicle save(Vehicle vehicle) {
         log.info("Vehicle with id {} is saved in database", vehicle.getId());
-        return catalogRepo.save(vehicle);
-
+        Vehicle v = modelMapper.map(vehicle, Vehicle.class);
+        var res = catalogRepo.save(v);
+        kafkaTemplate.send(KafkaConfig.TOPIC_NAME, res);
+        return res;
     }
 
 }
