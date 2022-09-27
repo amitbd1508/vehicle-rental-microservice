@@ -2,15 +2,21 @@ package com.carreservation.reservationservice.service;
 
 import com.carreservation.reservationservice.controller.request.ReservationRequest;
 import com.carreservation.reservationservice.entity.*;
+import com.carreservation.reservationservice.kafka.KafkaConfig;
+import com.carreservation.reservationservice.kafkamodels.PaymentRequestDTO;
 import com.carreservation.reservationservice.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
+@Service
 public class ReservationServiceImpl implements ReservationService{
     @Autowired
     RestTemplate restTemplate;
@@ -18,10 +24,21 @@ public class ReservationServiceImpl implements ReservationService{
     @Autowired
     private ReservationRepository reservationRepository;
 
+    @Autowired
+    private KafkaTemplate<String, PaymentRequestDTO> kafkaTemplate;
+
     @Override
     public Reservation addReservation(ReservationRequest reservationRequest, String vehicleId) {
 //        Account account = restTemplate.getForObject("http://localhost:8080/api/v1/users/" + reservationRequest.getAccount().getId(), Account.class);
-        Vehicle vehicle = restTemplate.getForObject("http://localhost:9001/vehicles/getvehicle/" + vehicleId, Vehicle.class);
+        Vehicle vehicle = new Vehicle(); //restTemplate.getForObject("http://localhost:9001/vehicles/getvehicle/" + vehicleId, Vehicle.class);
+
+        vehicle.setVehicleStatus(VehicleStatus.AVAILABLE);
+        vehicle.setId("string-id");
+        vehicle.setBrand("Ford");
+        vehicle.setVehicleType(VehicleType.SEDAN);
+        vehicle.setColor("Silver");
+        vehicle.setPrice(62.55);
+
         if (vehicle.getVehicleStatus() == VehicleStatus.AVAILABLE) {
             Reservation reservation = new Reservation();
             reservation.setDuration(reservationRequest.getDuration());
@@ -32,7 +49,16 @@ public class ReservationServiceImpl implements ReservationService{
             reservation.setReservationStatus(ReservationStatus.PENDING);
             reservation.getVehicle().setVehicleStatus(VehicleStatus.RESERVED);
             reservation.getVehicle().setId(vehicleId);
-            restTemplate.put("http://localhost:9001/vehicles/update-status/" + vehicleId, VehicleStatus.RESERVED, VehicleStatus.class);
+            //restTemplate.put("http://localhost:9001/vehicles/update-status/" + vehicleId, VehicleStatus.RESERVED, VehicleStatus.class);
+            PaymentRequestDTO dto= new PaymentRequestDTO();
+            dto.setUserId(reservation.getAccount().getId());
+            dto.setAmount(reservation.getVehicle().getPrice());
+            dto.setPaymentType(reservation.getPaymentType().toString());
+            dto.setQueueId(reservation.getId());
+            dto.setEmail(reservationRequest.getAccount().getEmail());
+
+            kafkaTemplate.send(KafkaConfig.TOPIC_NAME_RESERVATION_CREATED, dto);
+
             return reservationRepository.save(reservation);
         } else
             System.out.println("Vehicle is not available");
@@ -93,6 +119,21 @@ public class ReservationServiceImpl implements ReservationService{
             return "Payment processed successfully, reservation confirmed!";
         } else {
             return "Payment request failed, please try again!";
+        }
+    }
+
+    public void UpdateReservationStatus(UpdateReservationMessage updateReservationMessage){
+        var reservations = reservationRepository.findById(updateReservationMessage.getReservationId()).orElse(null);
+        if(updateReservationMessage.getPaymentStatus().equals("PAID")){
+            if(reservations!= null){
+                reservations.setReservationStatus(ReservationStatus.RESERVED);
+                reservationRepository.save(reservations);
+            }
+        }else {
+            if(reservations!= null){
+                reservations.setReservationStatus(ReservationStatus.CANCEL);
+                reservationRepository.save(reservations);
+            }
         }
     }
 }
