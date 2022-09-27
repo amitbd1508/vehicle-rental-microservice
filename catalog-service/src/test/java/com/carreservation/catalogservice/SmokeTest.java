@@ -25,7 +25,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-public class ServiceTest {
+public class SmokeTest {
     @TestConfiguration
     static class ServiceTestContextConfiguration {
         @Bean
