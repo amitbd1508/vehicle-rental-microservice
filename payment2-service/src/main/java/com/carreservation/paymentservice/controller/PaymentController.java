@@ -1,13 +1,12 @@
 package com.carreservation.paymentservice.controller;
 
-import com.carreservation.paymentservice.domain.PaymentRequest;
 import com.carreservation.paymentservice.dto.PaymentRequestDTO;
-import com.carreservation.paymentservice.dto.adapters.PaymentReqToDTOAdapter;
-import com.carreservation.paymentservice.kafka.KafkaConfig;
 import com.carreservation.paymentservice.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/payment")
 @RestController
@@ -17,7 +16,7 @@ public class PaymentController {
     PaymentService paymentService;
 
     @Autowired
-    KafkaTemplate<String, PaymentRequestDTO> kafkaTemplate;
+    KafkaTemplate<String, Object> kafkaTemplate;
 
 
 

@@ -7,9 +7,7 @@ import com.carreservation.paymentservice.domain.UpdateReservationMessage;
 import com.carreservation.paymentservice.dto.PaymentRequestDTO;
 import com.carreservation.paymentservice.kafka.KafkaConfig;
 import com.carreservation.paymentservice.repository.PaymentRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +36,7 @@ public class PaymentServiceImpl implements PaymentService{
     @Override
     public void processPayment(PaymentRequestDTO paymentRequestDTO){
         var paymentRequest  = paymentRepository.findAll().stream().filter(p-> p.getReservationId().equals(paymentRequestDTO.getQueueId())).collect(Collectors.toList());
-        if(paymentRequest== null){
+        if(paymentRequest!= null && paymentRequest.size()==0){
             PaymentRequest request= new PaymentRequest();
             request.setPaymentType(paymentRequestDTO.getPaymentType());
             request.setUserId(paymentRequestDTO.getUserId());
@@ -61,8 +59,6 @@ public class PaymentServiceImpl implements PaymentService{
             rm.setReservationId(request.getReservationId());
             kafkaTemplate.send(KafkaConfig.UPDATE_RES_STATUS, rm);
 
-
-            //produce payment sucess
         }
     }
 }

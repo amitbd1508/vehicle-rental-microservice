@@ -1,6 +1,5 @@
 package com.carreservation.paymentservice.domain;
 
-import com.carreservation.paymentservice.domain.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,10 +1,7 @@
 package com.carreservation.paymentservice.kafka;
 
 import com.carreservation.paymentservice.dto.PaymentRequestDTO;
-import com.carreservation.paymentservice.repository.PaymentRepository;
 import com.carreservation.paymentservice.service.PaymentService;
-import com.carreservation.paymentservice.service.PaymentServiceImpl;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
