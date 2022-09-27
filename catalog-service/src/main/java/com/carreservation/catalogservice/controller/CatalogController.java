@@ -38,12 +38,11 @@ public class CatalogController {
         return vehicleService.getVehicleByModel(model, page, size);
     }
 
-
     @GetMapping("/{vehicleId}")
     public Vehicle getVehicleById(@PathVariable String vehicleId) {
         return vehicleService.getVehicleById(vehicleId);
     }
-
+    
     @PostMapping("/add")
     public Vehicle add(@Valid @RequestBody Vehicle vehicle) {
         return vehicleService.save(vehicle);
