@@ -75,4 +75,5 @@ public class VehicleServiceImp implements VehicleService {
     public Vehicle save(Vehicle vehicle) {
         return catalogRepo.save(vehicle);
     }
+
 }
