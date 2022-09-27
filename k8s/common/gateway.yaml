@@ -13,53 +13,53 @@ spec:
       port:
         number: 80
   rules:
-    - host: "rental.amitghosh.me"
+    - host: ""
       http:
         paths:
           - path: /ui
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: frontend-svc
                 port:
                   number: 80
           - path: /accounts
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: account-svc
                 port:
                   number: 80
           - path: /catalogs
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: catalog-svc
                 port:
                   number: 80
           - path: /notifications
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: notification-svc
                 port:
                   number: 80
           - path: /payments
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: payment-svc
                 port:
                   number: 80
           - path: /reservations
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: reservation-svc
                 port:
                   number: 80
           - path: /search
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: search-svc

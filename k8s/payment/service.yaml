@@ -6,7 +6,7 @@ metadata:
     cloud.google.com/neg: '{"ingress": true}'
 spec:
   selector:
-    app: payment
+    run: payment
   ports:
     - name: http
       port: 80 # Service's port

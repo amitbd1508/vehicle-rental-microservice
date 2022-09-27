@@ -6,7 +6,7 @@ metadata:
     cloud.google.com/neg: '{"ingress": true}'
 spec:
   selector:
-    app: account
+    run: account
   ports:
     - name: http
       port: 80 # Service's port

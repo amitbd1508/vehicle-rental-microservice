@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: catalog
   labels:
-    app: catalog
+    run: catalog
 spec:
   selector:
     matchLabels:
-      app: catalog
+      run: catalog
   replicas: 1
   template:
     metadata:
       labels:
-        app: catalog
+        run: catalog
     spec:
       containers:
         - name: catalog
@@ -20,6 +20,9 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
+              protocol: TCP
+          securityContext:
+            privileged: false
           env: # Setting Environment Variables
             - name: SERVER_PORT
               value: "8080"

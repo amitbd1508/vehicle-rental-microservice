@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: reservation
   labels:
-    app: reservation
+    run: reservation
 spec:
   selector:
     matchLabels:
-      app: reservation
+      run: reservation
   replicas: 1
   template:
     metadata:
       labels:
-        app: reservation
+        run: reservation
     spec:
       containers:
         - name: reservation
@@ -20,6 +20,9 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
+              protocol: TCP
+          securityContext:
+            privileged: false
           env: # Setting Environment Variables
             - name: SERVER_PORT
               value: "8080"

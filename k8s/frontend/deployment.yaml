@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: frontend
   labels:
-    app: frontend
+    run: frontend
 spec:
   selector:
     matchLabels:
-      app: frontend
+      run: frontend
   replicas: 1
   template:
     metadata:
       labels:
-        app: frontend
+        run: frontend
     spec:
       containers:
         - name: frontend
@@ -20,3 +20,4 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
+              protocol: TCP

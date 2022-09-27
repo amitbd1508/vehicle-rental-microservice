@@ -3,23 +3,26 @@ kind: Deployment
 metadata:
   name: account
   labels:
-    app: account
+    run: account
 spec:
   selector:
     matchLabels:
-      app: account
+      run: account
   replicas: 1
   template:
     metadata:
       labels:
-        app: account
+        run: account
     spec:
       containers:
         - name: account
           image: amitbd1508/rental-account-service:1.0
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8080
+            - protocol: TCP
+              containerPort: 8080
+          securityContext:
+            privileged: false
           env: # Setting Environment Variables
             - name: DB_URL
               valueFrom:
