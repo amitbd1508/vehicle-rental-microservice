@@ -6,7 +6,6 @@ import com.carreservation.paymentservice.domain.PaymentStatus;
 import com.carreservation.paymentservice.domain.UpdateReservationMessage;
 import com.carreservation.paymentservice.dto.PaymentRequestDTO;
 import com.carreservation.paymentservice.kafka.KafkaConfig;
-import com.carreservation.paymentservice.repository.MyPaymentRepository;
 import com.carreservation.paymentservice.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
