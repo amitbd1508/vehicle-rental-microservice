@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
         private double amount;
 
         private String queueId;
+        private String email;
         @Override
         public String toString() {
             return "PaymentRequestDTO{" +

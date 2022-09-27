@@ -21,13 +21,13 @@ public class PaymentController {
 
 
 
-    @PostMapping
-    public PaymentRequest processPayment(@RequestBody PaymentRequest request) {
-        PaymentRequest paymentRequest=paymentService.makePayment(request);
-        PaymentRequestDTO paymentRequestDTO= PaymentReqToDTOAdapter.createPaymentRequestDTO(paymentRequest);
-        //kafkaTemplate.send("paymentnotifier", paymentRequestDTO);
-        return paymentRequest;
-    }
+//    @PostMapping
+//    public PaymentRequest processPayment(@RequestBody PaymentRequest request) {
+//        PaymentRequest paymentRequest=paymentService.makePayment(request);
+//        PaymentRequestDTO paymentRequestDTO= PaymentReqToDTOAdapter.createPaymentRequestDTO(paymentRequest);
+//        //kafkaTemplate.send("paymentnotifier", paymentRequestDTO);
+//        return paymentRequest;
+//    }
 
     @GetMapping("/makepayment")
     public String pay(){
@@ -38,7 +38,7 @@ public class PaymentController {
             ct.setUserId("Kafka testing");
             ct.setQueueId("Kafka testing");
             ct.setAmount(15.6);
-            kafkaTemplate.send(KafkaConfig.TOPIC_NAME, ct);
+            //kafkaTemplate.send(KafkaConfig.TOPIC_NAME, ct);
         } catch (Exception e) {
             e.printStackTrace();
         }

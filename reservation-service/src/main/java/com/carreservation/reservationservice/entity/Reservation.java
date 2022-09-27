@@ -7,11 +7,12 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.UUID;
+
 
 @Document
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Reservation {
 
     @Id
@@ -27,4 +28,7 @@ public class Reservation {
     //    @OneToOne(cascade = CascadeType.PERSIST)
 //    @JoinColumn(name = "vehicleID")
     private Vehicle vehicle;
+    public Reservation(){
+        this.id= UUID.randomUUID().toString();
+    }
 }
