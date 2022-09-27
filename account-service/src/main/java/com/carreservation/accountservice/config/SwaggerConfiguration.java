@@ -62,7 +62,7 @@ public class SwaggerConfiguration {
       )
       .apiInfo(apiInfo())
       .select()
-      .apis(RequestHandlerSelectors.basePackage("com.miniprojecttwo.accountservice.controller"))
+      .apis(RequestHandlerSelectors.basePackage("com.carreservation.accountservice.controller"))
       .build();
   }
 

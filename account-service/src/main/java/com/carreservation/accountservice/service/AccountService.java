@@ -12,15 +12,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AccountService {
-    AccountDTO save(AccountRegistrationDTO accountBody);
+    ResponseEntity<?> save(AccountRegistrationDTO accountBody);
 
     ResponseEntity<?> authenticate(LoginDTO credentialsBody);
 
     List<Account> findAllAccounts();
 
-    Optional<Account> findById(Long id);
+    Optional<Account> findById(String id);
 
-    void deleteById(Long id);
+    void deleteById(String id);
 
     Account findByUsername(String username);
 

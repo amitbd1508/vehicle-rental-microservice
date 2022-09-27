@@ -27,11 +27,7 @@ public class AccountController {
 
     @PostMapping(RestEndpoints.REGISTER)
     public ResponseEntity<?> save(@RequestBody AccountRegistrationDTO accountBody){
-        AccountDTO account = accountService.save(accountBody);
-        if(account== null)
-            return ResponseEntity.ok("Duplicate username");
-
-        return ResponseEntity.ok(account);
+        return accountService.save(accountBody);
     }
 
     // Authenticate a user
@@ -43,26 +39,6 @@ public class AccountController {
     @GetMapping()
     public ResponseEntity<List<Account>> findAllAccounts() {
         return ResponseEntity.ok(accountService.findAllAccounts());
-    }
-
-    // Get a single account by id
-//    @GetMapping(RestEndpoints.BY_ID)
-//    public ResponseEntity<?> findById(@PathVariable Long id){
-//        Optional<Account> account = accountService.findById(id);
-//        return ResponseEntity.ok(account);
-//    }
-//    // Get a single account by id
-//    @DeleteMapping(RestEndpoints.BY_ID)
-//    public ResponseEntity<?> deleteById(@PathVariable Long id){
-//        accountService.deleteById(id);
-//        return ResponseEntity.ok("Account deleted successfully !");
-//    }
-
-    // Get a single account by id
-    @GetMapping("{id}/preferredPaymentMethod")
-    public ResponseEntity<?> findPreferredPaymentMethodById(@PathVariable Long id){
-        Account account = accountService.findById(id).get();
-        return ResponseEntity.ok(account.getPreferredPaymentMethod());
     }
 
     @GetMapping("/{username}")

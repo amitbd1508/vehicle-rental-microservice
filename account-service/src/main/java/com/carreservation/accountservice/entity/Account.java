@@ -7,17 +7,16 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String firstname;
     private String lastname;
     private String email;
@@ -25,16 +24,15 @@ public class Account {
     private String password;
 
     @Embedded
-    private Address shippingAddress;
+    private Address address;
 
-    @ManyToMany
-    @JoinTable(name = "account_payment_method",
-            joinColumns = {@JoinColumn(name = "account_id")},
-            inverseJoinColumns = {@JoinColumn(name = "payment_id")}
-    )
-    private Set<PaymentMethod> paymentMethods;
+    @Embedded
+    private PaymentInfo paymentInfo;
 
-    private String preferredPaymentMethod;
+    @Enumerated(EnumType.STRING)
+    private Roles role;
 
-
+    public Account(){
+        this.id= UUID.randomUUID().toString();
+    }
 }

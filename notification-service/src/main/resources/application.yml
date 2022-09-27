@@ -2,5 +2,9 @@
 server:
   port: 8090
 spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://reservation-admin:DQ53QNzEbDlKGtHb@cluster0.10ffeuz.mongodb.net/?retryWrites=true&w=majority
+      database: dev-notification
   application:
     name: notification-service
