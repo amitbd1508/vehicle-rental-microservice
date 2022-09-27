@@ -14,10 +14,10 @@ spring:
   data:
     mongodb:
       uri: mongodb+srv://reservation-admin:DQ53QNzEbDlKGtHb@cluster0.10ffeuz.mongodb.net/?retryWrites=true&w=majority
-      database: dev-reservation
+      database: prod-reservation
 
 jwt:
   expiry: 300000
   secret: top-secret
 
-catalog.Url: http://localhost/8080
+catalog.url: ${CATALOG_URL}

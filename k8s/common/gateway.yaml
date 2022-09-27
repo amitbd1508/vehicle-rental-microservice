@@ -44,13 +44,6 @@ spec:
                 name: notification-svc
                 port:
                   number: 80
-          - path: /payments
-            pathType: Prefix
-            backend:
-              service:
-                name: payment-svc
-                port:
-                  number: 80
           - path: /reservations
             pathType: Prefix
             backend:
