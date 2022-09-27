@@ -1,6 +1,5 @@
 package com.carreservation.catalogservice.kafka;
 
-import com.carreservation.catalogservice.entity.Catalog;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
 import org.springframework.context.annotation.Bean;

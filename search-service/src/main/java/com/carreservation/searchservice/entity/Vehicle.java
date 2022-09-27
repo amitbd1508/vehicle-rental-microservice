@@ -1,16 +1,18 @@
 package com.carreservation.searchservice.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.stereotype.Repository;
 
-import java.io.Serializable;
 import java.util.UUID;
 
-@Document(indexName = "vehicle")
 @AllArgsConstructor
+@Repository
+@Document("catalog")
 @Data
-public class VehicleSearchItem implements Serializable {
+public class Vehicle {
     @Id
     private String id;
     private String catalogName;
@@ -18,11 +20,12 @@ public class VehicleSearchItem implements Serializable {
     private String brand;
     private String model;
     private String color;
+    private Integer quantity;
     private String yearOfManufacture;
+    private VehicleType vehicleType;
+    private VehicleStatus vehicleStatus;
     private Double price;
-
-    public VehicleSearchItem(){
+    public Vehicle(){
         this.id= UUID.randomUUID().toString();
     }
-
 }
