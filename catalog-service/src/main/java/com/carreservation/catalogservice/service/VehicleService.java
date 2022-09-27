@@ -14,7 +14,6 @@ public interface VehicleService {
     Page<Vehicle> getVehicleByModel(String model, Optional<Integer> page, Optional<Integer> size);
     Vehicle getVehicleById(String vehicleId);
     Vehicle updateVehicle(String vehicleId,  Vehicle vehicle);
-    Vehicle updateVehicleStatus(String vehicleId, VehicleStatus vehicleStatus);
-    void deleteVehicle(String vehicleId, Vehicle vehicle);
+    void deleteVehicle(String vehicleId);
     Vehicle save(Vehicle vehicle);
 }

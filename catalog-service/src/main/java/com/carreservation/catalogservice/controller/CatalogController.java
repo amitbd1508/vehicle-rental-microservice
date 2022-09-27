@@ -32,7 +32,6 @@ public class CatalogController {
         return vehicleService.getVehicleByBrand(brand, page, size);
     }
 
-
     @GetMapping("/bymodel/{model}")
     public Page<Vehicle> getVehicleByModel(@PathVariable String model, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
         return vehicleService.getVehicleByModel(model, page, size);
@@ -42,10 +41,21 @@ public class CatalogController {
     public Vehicle getVehicleById(@PathVariable String vehicleId) {
         return vehicleService.getVehicleById(vehicleId);
     }
-    
+
+    @PutMapping("/{vehicleId}")
+    public Vehicle updateVehicle(@PathVariable String vehicleId, @Valid @RequestBody Vehicle vehicle) {
+        return vehicleService.updateVehicle(vehicleId, vehicle);
+    }
+
     @PostMapping("/add")
     public Vehicle add(@Valid @RequestBody Vehicle vehicle) {
         return vehicleService.save(vehicle);
+    }
+
+    @DeleteMapping("/{vehicleId}")
+    public ResponseEntity<?> deleteVehicle(@PathVariable String vehicleId) {
+        vehicleService.deleteVehicle(vehicleId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
 
