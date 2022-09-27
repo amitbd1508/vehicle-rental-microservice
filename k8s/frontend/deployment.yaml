@@ -19,4 +19,4 @@ spec:
           image: amitbd1508/rental-frontend-service:1.0
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 4200
+            - containerPort: 80

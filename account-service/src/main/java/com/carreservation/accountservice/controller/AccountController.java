@@ -23,6 +23,10 @@ public class AccountController {
     @Autowired
     AccountService accountService;
 
+    @GetMapping()
+    public ResponseEntity<String> healthCheck(){
+      return ResponseEntity.ok("Alive");
+    }
     @PostMapping(RestEndpoints.REGISTER)
     public ResponseEntity<?> save(@RequestBody AccountRegistrationDTO accountBody){
         AccountDTO account = accountService.save(accountBody);
@@ -38,7 +42,7 @@ public class AccountController {
         return accountService.authenticate(credentialsBody);
     }
 
-    @GetMapping()
+    @GetMapping("/all")
     public ResponseEntity<List<Account>> findAllAccounts() {
         return ResponseEntity.ok(accountService.findAllAccounts());
     }

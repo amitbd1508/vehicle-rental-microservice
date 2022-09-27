@@ -1,20 +1,19 @@
 server:
-  port: ${SERVER_PORT}
+  port: 8082
 spring:
   application:
     name: catalog-service
   data:
     mongodb:
-      uri: mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.10ffeuz.mongodb.net/?retryWrites=true&w=majority
-      database: ${DB_NAME}
+      uri: mongodb+srv://reservation-admin:DQ53QNzEbDlKGtHb@cluster0.10ffeuz.mongodb.net/?retryWrites=true&w=majority
+      database: dev-catalog
 
 kafka:
-  bootstrap.servers: ${KAFKA_BOOTSTRAP_SERVER}
-  username: ${KAFKA_USERNAME}
-  password: ${KAFKA_PASSWORD}
+  bootstrap.servers: pkc-3w22w.us-central1.gcp.confluent.cloud:9092
+  username: DZVQ5N4IGPVHI2TP
+  password: RL/3kOXiq8eHHWAHSz4DsueV7Y3QQ3Cev3Le8aZeBajvHQARG3OmlPy8A93HF/CF
+  sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule   required username='DZVQ5N4IGPVHI2TP'   password='RL/3kOXiq8eHHWAHSz4DsueV7Y3QQ3Cev3Le8aZeBajvHQARG3OmlPy8A93HF/CF';
+  security.protocol: SASL_SSL
 
-jwt:
-  expiry: ${JWT_EXPIRY}
-  secret: ${JWT_SECRET}
 
 
