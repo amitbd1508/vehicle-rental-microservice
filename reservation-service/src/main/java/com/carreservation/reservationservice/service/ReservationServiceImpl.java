@@ -6,6 +6,7 @@ import com.carreservation.reservationservice.kafka.KafkaConfig;
 import com.carreservation.reservationservice.kafkamodels.PaymentRequestDTO;
 import com.carreservation.reservationservice.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -26,11 +27,13 @@ public class ReservationServiceImpl implements ReservationService{
 
     @Autowired
     private KafkaTemplate<String, PaymentRequestDTO> kafkaTemplate;
+    @Value("${catalog.Url}")
+    private String catalogUrl;
 
     @Override
     public Reservation addReservation(ReservationRequest reservationRequest, String vehicleId) {
 //        Account account = restTemplate.getForObject("http://localhost:8080/api/v1/users/" + reservationRequest.getAccount().getId(), Account.class);
-        Vehicle vehicle = new Vehicle(); //restTemplate.getForObject("http://localhost:9001/vehicles/getvehicle/" + vehicleId, Vehicle.class);
+        Vehicle vehicle = new Vehicle(); restTemplate.getForObject("http://localhost:9001/vehicles/getvehicle/" + vehicleId, Vehicle.class);
 
         vehicle.setVehicleStatus(VehicleStatus.AVAILABLE);
         vehicle.setId("string-id");
