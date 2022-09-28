@@ -16,14 +16,11 @@ spec:
     spec:
       containers:
         - name: account
-          image: amitbd1508/car-account-service:2.5
+          image: amitbd1508/rental-account-service:1.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
           env: # Setting Environment Variables
-            - name: PRODUCT_URL
-              value: http://product-svc:8080/products/
-
             - name: DB_URL
               valueFrom:
                 configMapKeyRef:

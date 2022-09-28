@@ -1,8 +1,10 @@
 package com.carreservation.accountservice.security;
 
+import com.carreservation.accountservice.entity.Roles;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -37,6 +39,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       .antMatchers("/v2/api-docs/**", "/swagger-ui/**", "/swagger-resources/**").permitAll()
       .antMatchers("/accounts/register").permitAll()
       .antMatchers("/accounts/login").permitAll()
+            .antMatchers(HttpMethod.GET,"/accounts").hasAnyAuthority(Roles.ADMIN.toString(), "RESERVATION_SERVICE")
+
       .anyRequest()
       .authenticated()
       .and()

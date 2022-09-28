@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: reservation-app-config
+data:
+  db-name: reservationdb
+  jwt_expire: "3600000"
