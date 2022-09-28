@@ -1,8 +1,9 @@
 package com.carreservation.accountservice.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.carreservation.accountservice.model.entity.Account;
+import com.carreservation.accountservice.entity.Account;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,9 +14,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
+@NoArgsConstructor
 public class AwesomeUserDetails implements UserDetails {
 
-    private long id;
+    private String id;
     private String email;
 
     @JsonIgnore
@@ -23,11 +25,14 @@ public class AwesomeUserDetails implements UserDetails {
 
     private List<String> roles;
 
+
     public AwesomeUserDetails(Account user) {
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.id = user.getId();
-        this.roles = new ArrayList<>();
+        var x = new ArrayList<String>();
+        x.add(user.getRole().toString());
+        this.roles = x;
     }
 
     @Override

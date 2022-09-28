@@ -1,6 +1,7 @@
-package com.carreservation.accountservice.model.dto;
+package com.carreservation.accountservice.dto;
 
-import com.carreservation.accountservice.model.entity.Address;
+import com.carreservation.accountservice.entity.Address;
+import com.carreservation.accountservice.entity.PaymentInfo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,6 @@ public class AccountRegistrationDTO {
     private String email;
     private String username;
     private String password;
-    private String preferredPaymentType;
-    private Address shippingAddress;
+    private Address address;
+    private PaymentInfo paymentInfo;
 }

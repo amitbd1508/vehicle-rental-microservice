@@ -1,13 +1,12 @@
 package com.carreservation.accountservice.service.impl;
 
-import com.carreservation.accountservice.model.dto.AccountDTO;
-import com.carreservation.accountservice.model.dto.AccountRegistrationDTO;
-import com.carreservation.accountservice.model.dto.LoginDTO;
+import com.carreservation.accountservice.dto.AccountDTO;
+import com.carreservation.accountservice.dto.AccountRegistrationDTO;
+import com.carreservation.accountservice.dto.LoginDTO;
+import com.carreservation.accountservice.entity.Roles;
 import com.carreservation.accountservice.repo.AccountRepo;
-import com.carreservation.accountservice.repo.PaymentMethodRepo;
 import com.carreservation.accountservice.service.AccountService;
-import com.carreservation.accountservice.model.entity.Account;
-import com.carreservation.accountservice.model.entity.PaymentMethod;
+import com.carreservation.accountservice.entity.Account;
 import com.carreservation.accountservice.security.JwtHelper;
 import org.json.simple.JSONObject;
 import org.modelmapper.ModelMapper;
@@ -28,8 +27,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     AccountRepo accountRepository;
-    @Autowired
-    private PaymentMethodRepo paymentTypeRepository;
+
     @Value("${jwt.secret}")
     private String secret;
     @Value("${jwt.expiry}")
@@ -45,15 +43,10 @@ public class AccountServiceImpl implements AccountService {
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Override
-    public AccountDTO save(AccountRegistrationDTO accountBody) {
+    public ResponseEntity<?> save(AccountRegistrationDTO accountBody) {
         String encodedPassword = bCryptPasswordEncoder.encode(accountBody.getPassword());
 
-        Set<PaymentMethod> paymentTypes = new HashSet<>(Arrays.asList(
-                paymentTypeRepository.getPaymentMethodByName("paypal").get(),
-                paymentTypeRepository.getPaymentMethodByName("credit card").get(),
-                paymentTypeRepository.getPaymentMethodByName("debit card").get()));
-        System.out.println("this one");
-        System.out.println();
+
         var dbUser = accountRepository.getUserByUsername(accountBody.getUsername()).orElse(null);
         if(dbUser== null){
             Account account = new Account();
@@ -62,21 +55,16 @@ public class AccountServiceImpl implements AccountService {
             account.setEmail(accountBody.getEmail());
             account.setPassword(encodedPassword);
             account.setUsername(accountBody.getUsername());
-            System.out.println("before one");
-            account.setPaymentMethods(paymentTypes);
-            System.out.println("after one");
-            var res = paymentTypes.stream().anyMatch(t->t.getName().equals(accountBody.getPreferredPaymentType()));
-            if(!res){
-                throw new RuntimeException("Payment method not valid");
-            }
-            account.setPreferredPaymentMethod(accountBody.getPreferredPaymentType());
-            account.setShippingAddress(accountBody.getShippingAddress());
+            account.setPaymentInfo(accountBody.getPaymentInfo());
+            account.setAddress(accountBody.getAddress());
+            account.setRole(Roles.USER);
             accountRepository.save(account);
             AccountDTO accountDTO = modelMapper.map(account, AccountDTO.class);
 
-            return accountDTO;
+            return ResponseEntity.status(HttpStatus.OK).body(accountDTO);
+
         }else {
-            return null;
+            return ResponseEntity.status(HttpStatus.OK).body("User already exist");
         }
 
     }
@@ -111,12 +99,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Optional<Account> findById(Long id) {
+    public Optional<Account> findById(String id) {
         return accountRepository.findById(id);
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         accountRepository.deleteById(id);
     }
 
@@ -127,7 +115,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account update(Long id, Account accountBody) {
-        // TO DO
+
         return null;
     }
 

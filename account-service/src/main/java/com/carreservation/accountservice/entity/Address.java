@@ -1,4 +1,4 @@
-package com.carreservation.accountservice.model.entity;
+package com.carreservation.accountservice.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
