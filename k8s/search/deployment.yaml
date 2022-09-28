@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: search
   labels:
-    app: search
+    run: search
 spec:
   selector:
     matchLabels:
-      app: search
+      run: search
   replicas: 1
   template:
     metadata:
       labels:
-        app: search
+        run: search
     spec:
       containers:
         - name: search
@@ -20,6 +20,9 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
+              protocol: TCP
+          securityContext:
+            privileged: false
           env: # Setting Environment Variables
             - name: SERVER_PORT
               value: "8080"

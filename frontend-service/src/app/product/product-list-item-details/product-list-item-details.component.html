@@ -1,0 +1,60 @@
+<div *ngIf="product" class="container">
+  <div class="row">
+    <div class="col-md-6 pull-left">
+      <div class="mb-lg-5">
+        <h2><strong>{{product.name}}</strong></h2>
+      </div>
+      <div>
+        <h5><strong class="mr-2">Price:</strong> <span><small>BDT </small>{{product.price}}</span></h5>
+      </div>
+      <div>
+        <h5><strong class="mr-2">In Stock:</strong> <span>{{selectedVariant.quantity}}</span></h5>
+      </div>
+    </div>
+    <div class=" col-md-6 pull-right">
+      <div>
+        <h4 class="mb-2">Quantity: </h4>
+        <div class="input-group">
+          <span class="input-group-btn">
+            <button (click)="decreaseQuantity()" class="quantity-left-minus btn btn-danger btn-number" type="button">
+              <i class="fa fa-minus"></i>
+            </button>
+          </span>
+          <input [(ngModel)]="quantity" class="form-control ml-2 mr-2" id="quantity" max="100" min="1" name="quantity"
+            type="text">
+          <span class="input-group-btn">
+            <button (click)="increaseQuantity()" class="btn btn-success" type="button">
+              <i class="fa fa-plus"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+      <div class="mt-4">
+        <h4>Product Variants: <span>{{selectedVariant.color}}</span></h4>
+        <div class="btn-group mt-4">
+          <label (click)="selectColor(variant)" *ngFor="let variant of product.variants"
+            [ngClass]="{'border-success bg-dark text-white': selectedVariant == variant}" btnCheckbox
+            class="btn btn-outline-secondary mr-2" role="button" tabindex="0">{{variant.color}}</label>
+        </div>
+      </div>
+
+      <div *ngIf="selectedVariant.size.length>0" class="mt-4">
+        <h4>Product Size: <span></span>{{selectedVariantSize}}</h4>
+
+        <div class="btn-group mt-4">
+          <label (click)="selectVariantSize(size)" *ngFor="let size of selectedVariant.size"
+            [ngClass]="{'border-success bg-dark': selectedVariantSize == size}" btnCheckbox
+            class="btn btn-outline-secondary mr-2" role="button" tabindex="0">{{size}}</label>
+        </div>
+      </div>
+      <div class="mt-4">
+        <button (click)="handleAddToCart(product)" [disabled]="!product.available" class="btn btn-success">Add to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <app-loading [condition]="isLoading"></app-loading>
+</div>
+
+<app-toast [message]="toast.message"></app-toast>

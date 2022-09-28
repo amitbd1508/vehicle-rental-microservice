@@ -29,3 +29,5 @@ jwt:
   expiry: ${JWT_EXPIRY}
   secret: ${JWT_SECRET}
 
+account-reservation-token: 123456789
+

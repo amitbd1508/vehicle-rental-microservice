@@ -5,16 +5,8 @@ spring:
     name: catalog-service
   data:
     mongodb:
-      uri: mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.10ffeuz.mongodb.net/?retryWrites=true&w=majority
-      database: ${DB_NAME}
+      uri: mongodb+srv://reservation-admin:DQ53QNzEbDlKGtHb@cluster0.10ffeuz.mongodb.net/?retryWrites=true&w=majority
+      database: dev-catalog
 
-kafka:
-  bootstrap.servers: ${KAFKA_BOOTSTRAP_SERVER}
-  username: ${KAFKA_USERNAME}
-  password: ${KAFKA_PASSWORD}
-
-jwt:
-  expiry: ${JWT_EXPIRY}
-  secret: ${JWT_SECRET}
 
 
