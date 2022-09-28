@@ -3,6 +3,7 @@ package com.carreservation.reservationservice.service;
 import com.carreservation.reservationservice.controller.request.ReservationRequest;
 import com.carreservation.reservationservice.entity.*;
 import com.carreservation.reservationservice.kafka.KafkaConfig;
+import com.carreservation.reservationservice.kafkamodels.CatalogMessageDTO;
 import com.carreservation.reservationservice.kafkamodels.PaymentRequestDTO;
 import com.carreservation.reservationservice.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.xml.catalog.Catalog;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -26,6 +28,9 @@ public class ReservationServiceImpl implements ReservationService{
 
     @Autowired
     private KafkaTemplate<String, PaymentRequestDTO> kafkaTemplate;
+
+    @Autowired
+    private KafkaTemplate<String, CatalogMessageDTO> kafkaCatalogTemplate;
 
     @Override
     public Reservation addReservation(ReservationRequest reservationRequest, String vehicleId) {
@@ -128,11 +133,21 @@ public class ReservationServiceImpl implements ReservationService{
             if(reservations!= null){
                 reservations.setReservationStatus(ReservationStatus.RESERVED);
                 reservationRepository.save(reservations);
+
+                CatalogMessageDTO catalogMessageDTO = new CatalogMessageDTO();
+                catalogMessageDTO.setVehicleId(reservations.getVehicle().getId());
+                catalogMessageDTO.setReservationStatus(ReservationStatus.RESERVED.toString());
+                kafkaCatalogTemplate.send(KafkaConfig.TOPIC_NAME_RESERVATION_CHANGED, catalogMessageDTO);
             }
         }else {
             if(reservations!= null){
                 reservations.setReservationStatus(ReservationStatus.CANCEL);
                 reservationRepository.save(reservations);
+
+                CatalogMessageDTO catalogMessageDTO = new CatalogMessageDTO();
+                catalogMessageDTO.setVehicleId(reservations.getVehicle().getId());
+                catalogMessageDTO.setReservationStatus(ReservationStatus.CANCEL.toString());
+                kafkaCatalogTemplate.send(KafkaConfig.TOPIC_NAME_RESERVATION_CHANGED, catalogMessageDTO);
             }
         }
     }
