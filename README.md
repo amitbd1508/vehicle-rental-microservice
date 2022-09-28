@@ -24,6 +24,8 @@
 ### Dev Deploy
 `` skaffold dev``
 
+###
+
 ### For logs
 ``sh scripts/logs/<service name>-log.sh``
 Eg: ``sh scripts/logs/reservation-log.sh``
