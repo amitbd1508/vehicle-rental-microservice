@@ -1,10 +1,9 @@
-name: 'Build & Deploy to EKS'
+name: 'Build & Deploy to GKE'
 on:
   push:
     branches:
       - release
 env:
-  EKS_REGION: ${{ secrets.EKS_REGION }}
   DOCKER_ID: ${{ secrets.DOCKER_ID }}
   DOCKER_PW: ${{ secrets.DOCKER_PW }}
 
