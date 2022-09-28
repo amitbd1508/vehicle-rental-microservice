@@ -1,15 +1,12 @@
-export interface Variant {
-  color: string;
-  size: string[];
-  quantity: number;
-}
-
 export interface Product {
   id: string;
-  name: string;
+  catalogName: string;
+  plateNumber: number;
+  brand: string;
+  model: string;
+  color: string;
+  vehicleType: string;
+  yearOfManufacture: string;
+  vehicleStatus: string;
   price: number;
-  available: boolean;
-  variants: Variant[];
-  createdAt: Date;
-  updatedAt: Date;
 }
