@@ -5,6 +5,7 @@
 export const environment = {
   catalogsUrl: 'http://localhost:8081/catalogs',
   accountsUrl: 'http://localhost:8080/accounts',
+  notificationsUrl: 'http://localhost:8082/notifications',
   production: false
 };
 

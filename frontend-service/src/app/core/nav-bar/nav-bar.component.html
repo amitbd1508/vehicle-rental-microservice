@@ -9,6 +9,12 @@
     </ng-container>
 
     <ng-container *ngIf="currentUser$ | async">
+      <a class="m-1 btn btn-outline-dark" routerLink="/notification">
+        <app-notification-counter></app-notification-counter>
+      </a>
+    </ng-container>
+
+    <ng-container *ngIf="currentUser$ | async">
       <a class="m-1 btn btn-outline-dark" routerLink="/cart">
         <app-cart-item-counter></app-cart-item-counter>
       </a>

@@ -18,6 +18,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'notification',
+    loadChildren: () =>
+      import('./notification/notification.module').then(
+        (module) => module.NotificationModule),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'account',
     loadChildren: () =>
       import('./account/account.module').then((module) => module.AccountModule),

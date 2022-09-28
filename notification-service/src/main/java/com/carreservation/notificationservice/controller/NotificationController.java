@@ -38,4 +38,9 @@ public class NotificationController {
         return notificationRepo.findAll();
 
     }
+
+  @GetMapping("/count")
+  public long getNotificationCount(){
+    return notificationRepo.findAll().stream().count();
+  }
 }
