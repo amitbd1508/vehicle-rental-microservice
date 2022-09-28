@@ -57,7 +57,9 @@ jobs:
       - name: Check gcloud version
         run: |
           gcloud --version
-      # Connect to EKS cluster
+      - name: Get Kube context
+        run: kubectl config get-contexts
+      # Connect to GKS cluster
       - name: Set kubectl context to gcloud cluster
         run: kubectl config set-context gke_possible-tape-183617_us-central1-a_neg-demo-cluster
       - name: Set up JDK 18
