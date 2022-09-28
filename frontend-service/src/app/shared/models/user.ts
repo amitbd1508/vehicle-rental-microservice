@@ -7,7 +7,9 @@ export interface User {
 }
 
 export interface CurrentUser {
-  name: string;
+  firstname: string;
+  lastname: string;
+  username: string;
   email: string;
   token: string;
 }

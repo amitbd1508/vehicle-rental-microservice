@@ -1,4 +1,5 @@
 export const environment = {
-  baseUrl: 'http://34.111.20.79',
+  catalogsUrl: 'http://34.111.20.79/catalogs',
+  accountsUrl: 'http://34.111.20.79/accounts',
   production: true
 };

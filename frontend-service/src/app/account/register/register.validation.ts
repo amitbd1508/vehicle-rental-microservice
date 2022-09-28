@@ -1,7 +1,9 @@
 import { FormGroup, Validators } from '@angular/forms';
 
 export const validationConfig = {
-  name: ['', [Validators.required, Validators.min(4), Validators.max(100)]],
+  firstname: ['', [Validators.required, Validators.min(4), Validators.max(100)]],
+  lastname: ['', [Validators.required, Validators.min(4), Validators.max(100)]],
+  username: ['', [Validators.required, Validators.min(4), Validators.max(100)]],
   email: ['', [Validators.required, Validators.email]],
   password: ['', [Validators.required, Validators.minLength(6)]],
   confirmation: ['', [Validators.required, Validators.minLength(6)]],

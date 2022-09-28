@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MessengerService } from '../shared/service/messenger.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AccountService {
   ) {}
 
   register(values: any): Observable<void> {
-    return this.http.post('/api/v1/register', values).pipe(
+    return this.http.post(`${environment.accountsUrl}/register`, values).pipe(
       map((user: CurrentUser) => {
         if (user) {
           localStorage.setItem('token', user.token);
@@ -31,8 +32,8 @@ export class AccountService {
   }
 
   login(values: any): Observable<any> {
-    return this.http.post('/api/v1/login', values).pipe(
-      map((user: CurrentUser) => {
+    return this.http.post(`${environment.accountsUrl}/login`, values).pipe(
+      map((user: any) => {
         if (user) {
           localStorage.setItem('token', user.token);
           this.currentUserSource.next(user);

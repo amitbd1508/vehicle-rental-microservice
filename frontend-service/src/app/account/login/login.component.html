@@ -7,12 +7,11 @@
       <div class="card-body">
         <form [formGroup]="form" (ngSubmit)="onLogin()">
           <div class="form-group">
-            <label for="email">Email address</label>
-            <input autocomplete="on" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" class="form-control"
-              formControlName="email" id="email" placeholder="Enter email" type="email">
-            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-              <div *ngIf="f.email.errors.required">Email is required</div>
-              <div *ngIf="f.email.errors">Email must be a valid email address</div>
+            <label for="username">Username</label>
+            <input autocomplete="on" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" class="form-control"
+              formControlName="username" id="username" placeholder="Enter Username" type="name">
+            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+              <div *ngIf="f.username.errors.required">Username is required</div>
             </div>
           </div>
           <div class="form-group">

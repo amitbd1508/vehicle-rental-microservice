@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping(RestEndpoints.ACCOUNTS)
 @Api( tags = "Account")
+@CrossOrigin
 public class AccountController {
 
     @Autowired
@@ -28,7 +29,8 @@ public class AccountController {
     }
     @PostMapping(RestEndpoints.REGISTER)
     public ResponseEntity<?> save(@RequestBody AccountRegistrationDTO accountBody){
-        return accountService.save(accountBody);
+        accountService.save(accountBody);
+        return accountService.authenticate(new LoginDTO(accountBody.getUsername(), accountBody.getPassword()));
     }
 
     // Authenticate a user

@@ -8,14 +8,14 @@ const routes: Routes = [
     path: 'product',
     loadChildren: () =>
       import('./product/product.module').then((module) => module.ProductModule),
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'cart',
     loadChildren: () =>
       import('./shopping-cart/shopping-cart.module').then(
         (module) => module.ShoppingCartModule),
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'account',
