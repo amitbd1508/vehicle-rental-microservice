@@ -10,8 +10,10 @@ import com.carreservation.reservationservice.service.ReservationService;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/reservation")
 public class ReservationController {
-    @Qualifier("reservationServiceImpl")
+    //@Qualifier("reservationServiceImpl")
     @Autowired
     ReservationService reservationService;
 
