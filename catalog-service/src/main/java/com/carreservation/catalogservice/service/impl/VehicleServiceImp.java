@@ -87,10 +87,10 @@ public class VehicleServiceImp implements VehicleService {
 
     @Override
     public Vehicle save(Vehicle vehicle) {
-        log.info("Vehicle with id {} is saved in database", vehicle.getId());
         Vehicle v = modelMapper.map(vehicle, Vehicle.class);
         var res = catalogRepo.save(v);
         kafkaTemplate.send(KafkaConfig.TOPIC_NAME, res);
+        log.info("Vehicle with id {} is saved in database", vehicle.getId());
         return res;
     }
 
