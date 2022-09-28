@@ -2,10 +2,10 @@ package com.carreservation.accountservice.service;
 
 
 
-import com.carreservation.accountservice.dto.AccountDTO;
-import com.carreservation.accountservice.dto.AccountRegistrationDTO;
-import com.carreservation.accountservice.dto.LoginDTO;
-import com.carreservation.accountservice.entity.Account;
+import com.carreservation.accountservice.model.dto.AccountDTO;
+import com.carreservation.accountservice.model.dto.AccountRegistrationDTO;
+import com.carreservation.accountservice.model.dto.LoginDTO;
+import com.carreservation.accountservice.model.entity.Account;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

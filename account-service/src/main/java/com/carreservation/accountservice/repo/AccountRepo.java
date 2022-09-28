@@ -1,6 +1,6 @@
 package com.carreservation.accountservice.repo;
 
-import com.carreservation.accountservice.entity.Account;
+import com.carreservation.accountservice.model.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
