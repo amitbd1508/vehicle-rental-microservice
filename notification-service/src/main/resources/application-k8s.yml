@@ -7,3 +7,8 @@ spring:
     mongodb:
       uri: mongodb+srv://reservation-admin:DQ53QNzEbDlKGtHb@cluster0.10ffeuz.mongodb.net/?retryWrites=true&w=majority
       database: prod-notification
+jwt:
+  expiry: 300000
+  secret: top-secret
+
+account-reservation-token: 123456789

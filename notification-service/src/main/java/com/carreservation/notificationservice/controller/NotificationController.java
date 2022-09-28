@@ -4,6 +4,7 @@ import com.carreservation.notificationservice.entity.Notification;
 import com.carreservation.notificationservice.entity.enums.NotificationStatus;
 import com.carreservation.notificationservice.repo.NotificationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/notifications")
+@CrossOrigin
 public class NotificationController {
 
     @Autowired

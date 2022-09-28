@@ -11,7 +11,8 @@ import com.carreservation.reservationservice.service.ReservationService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reservation")
+@RequestMapping("/carreservations")
+@CrossOrigin
 public class ReservationController {
     //@Qualifier("reservationServiceImpl")
     @Autowired

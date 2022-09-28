@@ -7,6 +7,11 @@ metadata:
     kubernetes.io/ingress.class: "gce"
     kubernetes.io/ingress.allow-http: "true"
 spec:
+  defaultBackend:
+    service:
+      name: frontend-svc
+      port:
+        number: 80
   rules:
     - host: ""
       http:
@@ -18,7 +23,7 @@ spec:
                 name: frontend-svc
                 port:
                   number: 80
-          - path: /accounts
+          - path: /users
             pathType: Prefix
             backend:
               service:
@@ -39,7 +44,7 @@ spec:
                 name: notification-svc
                 port:
                   number: 80
-          - path: /reservation
+          - path: /carreservations
             pathType: Prefix
             backend:
               service:
