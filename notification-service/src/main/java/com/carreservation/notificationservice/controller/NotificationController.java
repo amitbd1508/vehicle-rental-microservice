@@ -4,12 +4,10 @@ import com.carreservation.notificationservice.entity.Notification;
 import com.carreservation.notificationservice.entity.enums.NotificationStatus;
 import com.carreservation.notificationservice.repo.NotificationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/notifications")
@@ -28,14 +26,10 @@ public class NotificationController {
         notificationRepo.save(n);
         return "success";
     }
-    @GetMapping
-    public List<Notification> getAll(){
-        Notification n= new Notification();
-        n.setTitle("Title");
-        n.setBody("Body");
-        n.setUser_id("userIddd");
-        n.setNotificationStatus(NotificationStatus.New);
-        return notificationRepo.findAll();
+    @GetMapping("/{userId}")
+    public List<Notification> getAll(@PathVariable String userId){
+
+        return notificationRepo.findAll().stream().filter(n-> n.getUser_id().equals(userId)).collect(Collectors.toList());
 
     }
 
