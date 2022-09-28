@@ -11,7 +11,6 @@
 - Elasticsearch
 - MongoDB
 - MySql
-- 
 
 ## Requirement
 - [Minikube](https://minikube.sigs.k8s.io/docs/start/)
