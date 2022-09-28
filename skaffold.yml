@@ -12,12 +12,16 @@ build:
     context: catalog-service
     docker:
       dockerfile: Dockerfile
+  - image: amitbd1508/rental-frontend-service
+    context: frontend-service
+    docker:
+      dockerfile: Dockerfile
   - image: amitbd1508/rental-notification-service
     context: notification-service
     docker:
       dockerfile: Dockerfile
   - image: amitbd1508/rental-payment-service
-    context: payment-service
+    context: payment2-service
     docker:
       dockerfile: Dockerfile
   - image: amitbd1508/rental-reservation-service
@@ -31,10 +35,6 @@ build:
 deploy:
   kubectl:
     manifests:
-    - k8s/common/kafka-config.yaml
-    - k8s/common/kafka-secret.yml
-    - k8s/common/mongo-config.yaml
-    - k8s/common/mongo-secret.yml
     - k8s/account/config.yaml
     - k8s/account/db-deployment.yaml
     - k8s/account/deployment.yaml
@@ -44,12 +44,18 @@ deploy:
     - k8s/catalog/deployment.yaml
     - k8s/catalog/secret.yaml
     - k8s/catalog/service.yaml
+    - k8s/common/gateway.yaml
+    - k8s/common/kafka-config.yaml
+    - k8s/common/kafka-secret.yml
+    - k8s/common/mongo-config.yaml
+    - k8s/common/mongo-secret.yml
+    - k8s/frontend/deployment.yaml
+    - k8s/frontend/service.yaml
     - k8s/notification/config.yaml
     - k8s/notification/deployment.yaml
     - k8s/notification/secret.yaml
     - k8s/notification/service.yaml
     - k8s/payment/config.yaml
-    - k8s/payment/db-deployment.yaml
     - k8s/payment/deployment.yaml
     - k8s/payment/secret.yaml
     - k8s/payment/service.yaml

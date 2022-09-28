@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-svc
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+spec:
+  selector:
+    run: frontend
+  ports:
+    - name: http
+      port: 80 # Service's port
+      protocol: TCP
+      targetPort: 80
+  type: ClusterIP

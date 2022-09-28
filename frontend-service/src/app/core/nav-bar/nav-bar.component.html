@@ -1,0 +1,20 @@
+<div class="d-flex flex-column flex-md-row align-items-center p-1 px-md-4 mb-3 border-bottom box-shadow">
+  <a class="mr-md-auto navbar-brand" routerLink="/">
+    <img alt="" height="50" loading="lazy" src="https://img.freepik.com/premium-vector/car-rental-logo-template-design_316488-1614.jpg">
+  </a>
+  <nav>
+    <ng-container *ngIf="(currentUser$ | async) == null">
+      <a class="m-1 btn btn-outline-dark" routerLink="/account/register">Register</a>
+      <a class="m-1 btn btn-outline-dark" routerLink="/account/login">Login</a>
+    </ng-container>
+
+    <ng-container *ngIf="currentUser$ | async">
+      <a class="m-1 btn btn-outline-dark" routerLink="/cart">
+        <app-cart-item-counter></app-cart-item-counter>
+      </a>
+      <a (click)="logout()" class="m-1 btn btn-outline-dark" routerLink="/">Logout</a>
+
+    </ng-container>
+
+  </nav>
+</div>

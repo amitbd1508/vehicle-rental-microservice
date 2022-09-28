@@ -1,0 +1,13 @@
+.cart table {
+  width: 100%;
+  border: 1px solid #0000001f;
+}
+
+.cart table tr:nth-child(even) {
+  background: #0000002f;
+}
+
+.cart th,
+td {
+  padding: 1rem 1rem;
+}

@@ -17,6 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/catalogs")
+@CrossOrigin
 public class CatalogController {
 
     @Autowired

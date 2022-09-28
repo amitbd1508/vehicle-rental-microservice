@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: notification
   labels:
-    app: notification
+    run: notification
 spec:
   selector:
     matchLabels:
-      app: notification
+      run: notification
   replicas: 1
   template:
     metadata:
       labels:
-        app: notification
+        run: notification
     spec:
       containers:
         - name: notification
@@ -20,6 +20,9 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
+              protocol: TCP
+          securityContext:
+            privileged: false
           env: # Setting Environment Variables
             - name: SERVER_PORT
               value: "8080"

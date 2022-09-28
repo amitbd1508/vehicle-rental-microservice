@@ -3,20 +3,21 @@ kind: Deployment
 metadata:
   name: frontend
   labels:
-    app: frontend
+    run: frontend
 spec:
   selector:
     matchLabels:
-      app: frontend
+      run: frontend
   replicas: 1
   template:
     metadata:
       labels:
-        app: frontend
+        run: frontend
     spec:
       containers:
         - name: frontend
           image: amitbd1508/rental-frontend-service:1.0
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 4200
+            - containerPort: 80
+              protocol: TCP

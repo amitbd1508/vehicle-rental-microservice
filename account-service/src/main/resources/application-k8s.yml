@@ -15,9 +15,10 @@ spring:
       FAIL_ON_EMPTY_BEANS: false
 
   jpa:
-    hibernate.ddl-auto: create-drop
+    hibernate.ddl-auto: none
     generate-ddl: true
     show-sql: true
+    #    defer-datasource-initialization: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
@@ -28,4 +29,6 @@ spring:
 jwt:
   expiry: ${JWT_EXPIRY}
   secret: ${JWT_SECRET}
+
+account-reservation-token: 123456789
 
