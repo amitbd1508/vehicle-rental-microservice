@@ -1,0 +1,34 @@
+<div class="d-flex justify-content-center">
+  <div class="col-sm-8 col-md-6 col-lg-4">
+    <div class="card">
+      <div class="card-header">
+        <h4>Login</h4>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="onLogin()">
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input autocomplete="on" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" class="form-control"
+              formControlName="email" id="email" placeholder="Enter email" type="email">
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+              <div *ngIf="f.email.errors">Email must be a valid email address</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input autocomplete="on" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" class="form-control"
+              formControlName="password" id="password" placeholder="Password" type="password">
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Password is required</div>
+              <div *ngIf="f.password.errors.minLength">Password must be at least 6 characters</div>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-toast [message]="toast.message"></app-toast>

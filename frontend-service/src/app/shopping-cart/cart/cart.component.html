@@ -1,0 +1,61 @@
+<div *ngIf="cartItems" class="container">
+  <div class="card-header">
+    <h3>Cart</h3>
+  </div>
+  <div class="card-text" *ngIf="cartItems.length<=0">
+    <h2 class="m-4">Your cart is empty</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-12 cart">
+      <table>
+        <tr>
+          <th>Product Name</th>
+          <th>Variant Color</th>
+          <th>Variant Size</th>
+          <th>Quantity</th>
+          <th>Price(BDT)</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngFor="let cartItem of cartItems">
+          <td>{{cartItem.productName}}</td>
+          <td>{{cartItem.variantColor}}</td>
+          <td>{{cartItem.variantSize}}</td>
+          <td>
+            <app-cart-item-quantity-change (quantityChange)="onChangeQuantity($event)" [cartItem]="cartItem">
+            </app-cart-item-quantity-change>
+          </td>
+          <td>
+            {{cartItem.productPrice * cartItem.quantity}}
+          </td>
+          <td>
+            <span>
+              <button (click)="removeItem(cartItem)" class="btn btn-danger btn-number" type="button">
+                <i class="fa fa-trash"></i>
+              </button>
+            </span>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="6"></td>
+        </tr>
+        <tr>
+          <td>
+            Total(BDT):
+          </td>
+          <td colspan="3"></td>
+          <td colspan="2">
+            {{cartTotal}}
+          </td>
+        </tr>
+      </table>
+      <div>
+        <button [disabled]="cartItems.length < 1" (click)="checkOut()"
+          class="btn btn-warning pull-right btn-lg mt-4">Checkout</button>
+        <button routerLink="/" class="btn btn-success pull-left btn-lg mt-4">Continue Shopping</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-toast [message]="toast.message"></app-toast>
