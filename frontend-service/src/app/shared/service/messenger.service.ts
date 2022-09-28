@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map} from "rxjs/operators";
 import {CurrentUser} from "../models/user";
 import {environment} from "../../../environments/environment";
@@ -22,7 +22,7 @@ export class MessengerService {
   }
 
   getNotificationCount(): Observable<any> {
-    return this.http.get(`${environment.notificationsUrl}/notifications/count`);
+    return this.http.get<any>(`${environment.notificationsUrl}/count`);
   }
 
 

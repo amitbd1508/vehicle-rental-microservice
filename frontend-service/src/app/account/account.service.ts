@@ -25,6 +25,7 @@ export class AccountService {
       map((user: CurrentUser) => {
         if (user) {
           localStorage.setItem('token', user.token);
+          localStorage.setItem('user', JSON.stringify(user));
           this.currentUserSource.next(user);
         }
       })
@@ -36,6 +37,7 @@ export class AccountService {
       map((user: any) => {
         if (user) {
           localStorage.setItem('token', user.token);
+          localStorage.setItem('user', JSON.stringify(user));
           this.currentUserSource.next(user);
         }
       })
@@ -56,16 +58,18 @@ export class AccountService {
       return of(null);
     }
 
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', `Bearer ${token}`);
+    this.currentUserSource.next(JSON.parse(localStorage.getItem('user')));
 
-    return this.http.get('/api/v1/account', { headers }).pipe(
-      map((user: CurrentUser) => {
-        if (user) {
-          localStorage.setItem('token', user.token);
-          this.currentUserSource.next(user);
-        }
-      })
-    );
+    // let headers = new HttpHeaders();
+    // headers = headers.set('Authorization', `Bearer ${token}`);
+    //
+    // return this.http.get('/api/v1/account', { headers }).pipe(
+    //   map((user: CurrentUser) => {
+    //     if (user) {
+    //       localStorage.setItem('token', user.token);
+    //       this.currentUserSource.next(user);
+    //     }
+    //   })
+    // );
   }
 }
