@@ -23,7 +23,7 @@ spec:
                 name: frontend-svc
                 port:
                   number: 80
-          - path: /users
+          - path: /accounts
             pathType: Prefix
             backend:
               service:
@@ -44,7 +44,7 @@ spec:
                 name: notification-svc
                 port:
                   number: 80
-          - path: /carreservations
+          - path: /reservations
             pathType: Prefix
             backend:
               service:

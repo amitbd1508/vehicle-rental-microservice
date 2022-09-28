@@ -39,6 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       .antMatchers("/v2/api-docs/**", "/swagger-ui/**", "/swagger-resources/**").permitAll()
       .antMatchers("/accounts/register").permitAll()
       .antMatchers("/accounts/login").permitAll()
+      .antMatchers(HttpMethod.GET, "/").permitAll()
             .antMatchers(HttpMethod.GET,"/accounts").hasAnyAuthority(Roles.ADMIN.toString(), "RESERVATION_SERVICE")
 
       .anyRequest()
