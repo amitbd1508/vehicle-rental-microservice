@@ -30,7 +30,7 @@ jobs:
       - name: Get auth
         uses: google-github-actions/auth@v0.4.0
         with:
-          cluster_name: neg-demo-cluster
+          cluster_name: gke_possible-tape-183617_us-central1-a_neg-demo-cluster
           location: us-central1-a
       - name: Get pods
         run: kubectl get pods
