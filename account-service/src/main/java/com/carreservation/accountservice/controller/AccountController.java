@@ -3,14 +3,11 @@ package com.carreservation.accountservice.controller;
 
 
 import com.carreservation.accountservice.constants.RestEndpoints;
-import com.carreservation.accountservice.dto.AccountDTO;
 import com.carreservation.accountservice.dto.AccountRegistrationDTO;
 import com.carreservation.accountservice.dto.LoginDTO;
 import com.carreservation.accountservice.service.AccountService;
 import com.carreservation.accountservice.entity.Account;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

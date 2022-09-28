@@ -1,12 +1,10 @@
-package com.carreservation.accountservice.model.entity;
+package com.carreservation.accountservice.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -27,10 +25,10 @@ public class Account {
     private Address address;
 
     @Embedded
-    private PaymentInfo paymentInfo;
+    private com.carreservation.accountservice.entity.PaymentInfo paymentInfo;
 
     @Enumerated(EnumType.STRING)
-    private Roles role;
+    private com.carreservation.accountservice.entity.Roles role;
 
     public Account(){
         this.id= UUID.randomUUID().toString();

@@ -1,4 +1,4 @@
-package com.carreservation.accountservice.model.dto;
+package com.carreservation.accountservice.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
