@@ -1,6 +1,23 @@
 
 server:
-  port: 8086
+  port: 8080
 spring:
+  kafka:
+    properties:
+      sasl.mechanism: PLAIN
+      bootstrap.servers: pkc-3w22w.us-central1.gcp.confluent.cloud:9092
+      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule   required username='DZVQ5N4IGPVHI2TP'   password='RL/3kOXiq8eHHWAHSz4DsueV7Y3QQ3Cev3Le8aZeBajvHQARG3OmlPy8A93HF/CF';
+      security.protocol: SASL_SSL
   application:
     name: search-service
+
+  data:
+    mongodb:
+      uri: mongodb+srv://reservation-admin:DQ53QNzEbDlKGtHb@cluster0.10ffeuz.mongodb.net/?retryWrites=true&w=majority
+      database: dev-search
+
+jwt:
+  expiry: 300000
+  secret: top-secret
+
+
