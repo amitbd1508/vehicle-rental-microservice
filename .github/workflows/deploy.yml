@@ -32,6 +32,7 @@ jobs:
         with:
           cluster_name: neg-demo-cluster
           location: us-central1-a
+      - name: Get pods
         run: kubectl get pods
       # Login to Docker registry
       - name: Login to Docker Hub
