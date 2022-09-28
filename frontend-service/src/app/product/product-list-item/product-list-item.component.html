@@ -1,9 +1,9 @@
 <div class="card border">
   <div class="card-body">
-    <h5 class="card-title">{{product.name}}</h5>
-    <p>Status: {{product.available ? 'Available' : 'Not Available'}}</p>
-    <p>Price: {{product.price}} BDT</p>
+    <h5 class="card-title">{{product.catalogName}}</h5>
+    <p>Status: {{product.vehicleStatus}}</p>
+    <p>Price: USD {{product.price}}</p>
 
-    <a class="btn btn-outline-secondary btn-sm" href="product/{{product.id}}">Buy Now</a>
+    <a class="btn btn-outline-secondary btn-sm" href="product/{{product.id}}">Reserve Now</a>
   </div>
 </div>
