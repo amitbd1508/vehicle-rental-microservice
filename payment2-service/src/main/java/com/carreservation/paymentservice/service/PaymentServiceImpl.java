@@ -35,30 +35,26 @@ public class PaymentServiceImpl implements PaymentService{
 
     @Override
     public void processPayment(PaymentRequestDTO paymentRequestDTO){
-        var paymentRequest  = paymentRepository.findAll().stream().filter(p-> p.getReservationId().equals(paymentRequestDTO.getQueueId())).collect(Collectors.toList());
-        if(paymentRequest!= null && paymentRequest.size()==0){
-            PaymentRequest request= new PaymentRequest();
-            request.setPaymentType(paymentRequestDTO.getPaymentType());
-            request.setUserId(paymentRequestDTO.getUserId());
-            request.setPrice(paymentRequestDTO.getAmount());
-            request.setReservationId(paymentRequestDTO.getQueueId());
-            var request2 = makePayment(request);
+        PaymentRequest request= new PaymentRequest();
+        request.setPaymentType(paymentRequestDTO.getPaymentType());
+        request.setUserId(paymentRequestDTO.getUserId());
+        request.setPrice(paymentRequestDTO.getAmount());
+        request.setReservationId(paymentRequestDTO.getQueueId());
+        var request2 = makePayment(request);
 
-            // payment notification
-            PaymentNotification py = new PaymentNotification();
-            py.setPaymentStatus(PaymentStatus.PAID.toString());
-            py.setUserId(request.getUserId());
-            py.setUserEmail(paymentRequestDTO.getEmail());
-            py.setReservationId(request.getReservationId());
+        // payment notification
+        PaymentNotification py = new PaymentNotification();
+        py.setPaymentStatus(PaymentStatus.PAID.toString());
+        py.setUserId(request.getUserId());
+        py.setUserEmail(paymentRequestDTO.getEmail());
+        py.setReservationId(request.getReservationId());
 
-            kafkaTemplate.send(KafkaConfig.PAYMENT_NOTIFICATION, py);
+        kafkaTemplate.send(KafkaConfig.PAYMENT_NOTIFICATION, py);
 
-            UpdateReservationMessage rm= new UpdateReservationMessage();
-            rm.setPaymentStatus(PaymentStatus.PAID.toString());
-            rm.setUserId(request.getUserId());
-            rm.setReservationId(request.getReservationId());
-            kafkaTemplate.send(KafkaConfig.UPDATE_RES_STATUS, rm);
-
-        }
+        UpdateReservationMessage rm= new UpdateReservationMessage();
+        rm.setPaymentStatus(PaymentStatus.PAID.toString());
+        rm.setUserId(request.getUserId());
+        rm.setReservationId(request.getReservationId());
+        kafkaTemplate.send(KafkaConfig.UPDATE_RES_STATUS, rm);
     }
 }
