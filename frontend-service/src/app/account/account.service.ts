@@ -53,7 +53,7 @@ export class AccountService {
     this.router.navigateByUrl('/account/login');
   }
 
-  loadCurrentUser(token: string): any {
+  loadCurrentUser(token: string): Observable<any> {
     if (token === null) {
       this.currentUserSource.next(null);
       return of(null);
@@ -61,6 +61,7 @@ export class AccountService {
 
     this.currentUserSource.next(JSON.parse(localStorage.getItem('user')));
 
+    return this.currentUserSource;
     // let headers = new HttpHeaders();
     // headers = headers.set('Authorization', `Bearer ${token}`);
     //

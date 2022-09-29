@@ -26,9 +26,12 @@
           <td>{{item.vehicle.vehicleStatus}}</td>
           <td>
             <span>
-              <button (click)="pay(item)" class="btn btn-danger btn-number" type="button">
-                <i class="fa fa-trash"></i>
+              <button (click)="pay(item)" *ngIf="item.reservationStatus !== 'AVAILABLE'" class="btn btn-warning" type="button">
+                Pay <i class="fa fa-cc-stripe"></i>
               </button>
+              <div class="btn btn-success" *ngIf="item.reservationStatus === 'AVAILABLE'">
+                Paid <i class="fa fa-cc-stripe"></i>
+              </div>
             </span>
           </td>
         </tr>

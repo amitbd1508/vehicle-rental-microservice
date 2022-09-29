@@ -13,7 +13,7 @@ export class CartService {
   constructor(private http: HttpClient) {}
 
   getReservation(userId: string): Observable<any> {
-    return this.http.get<any>(`${environment.reservationsUrl}/${userId}`);
+    return this.http.get<any>(`${environment.reservationsUrl}/getUserReservation/${userId}`);
   }
 
   payReservation(reservationId: string, userId: string): Observable<any> {
