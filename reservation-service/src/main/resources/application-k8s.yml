@@ -11,7 +11,8 @@ spring:
       database: prod-reservation
 
 jwt:
-  expiry: 300000
+  expiry: 300000000
   secret: top-secret
 
 catalog.url: ${CATALOG_URL}
+account-reservation-token: 123456789

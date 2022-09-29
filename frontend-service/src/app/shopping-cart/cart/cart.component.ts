@@ -46,6 +46,7 @@ export class CartComponent implements OnInit {
     }, error => {
       this.toast.setMessage(error.text, 'success');
       console.error(error)
+      this.load();
     })
   }
 }

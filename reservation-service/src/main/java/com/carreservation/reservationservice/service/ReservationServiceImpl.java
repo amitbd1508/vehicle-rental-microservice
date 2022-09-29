@@ -92,17 +92,17 @@ public class ReservationServiceImpl implements ReservationService{
 
 
     @Override
-    public String pay(PaymentRequest paymentRequest) {
+    public PaymentDto pay(PaymentRequest paymentRequest) {
         Reservation reservation = reservationRepository.findById(paymentRequest.getReservationId()).orElse(null);
         if (reservation== null||reservation.getReservationStatus().equals(ReservationStatus.CANCEL) || reservation.getReservationStatus().equals(ReservationStatus.RESERVED)) {
             System.out.println("No Reservation Found by id: " + paymentRequest.getReservationId());
-            return "Not a valid Reservation";
+            return new PaymentDto("Not a valid Reservation");
         }
 
         var vehical = restTemplate.getForObject(catalogUrl+"/" + reservation.getVehicle().getId(), Vehicle.class);
 
         if(vehical.getVehicleStatus().equals(VehicleStatus.RESERVED)){
-            return "This Vehicle is not available";
+            return new PaymentDto("This Vehicle is not available");
         }
 
         PaymentRequestDTO dto= new PaymentRequestDTO();
@@ -114,7 +114,7 @@ public class ReservationServiceImpl implements ReservationService{
 
         kafkaTemplate.send(KafkaConfig.TOPIC_NAME_RESERVATION_CREATED, dto);
 
-        return "{message: payment done}";
+        return new PaymentDto("Payment is processing");
 
     }
 

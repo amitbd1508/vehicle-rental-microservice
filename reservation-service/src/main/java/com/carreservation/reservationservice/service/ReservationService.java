@@ -1,6 +1,7 @@
 package com.carreservation.reservationservice.service;
 
 import com.carreservation.reservationservice.controller.request.ReservationRequest;
+import com.carreservation.reservationservice.entity.PaymentDto;
 import com.carreservation.reservationservice.entity.PaymentRequest;
 import com.carreservation.reservationservice.entity.Reservation;
 
@@ -18,5 +19,5 @@ public interface ReservationService {
 
 //    Reservation updateStatus (Long reservationId, VehicleStatus status);
 
-    String pay (PaymentRequest paymentRequest);
+    PaymentDto pay (PaymentRequest paymentRequest);
 }

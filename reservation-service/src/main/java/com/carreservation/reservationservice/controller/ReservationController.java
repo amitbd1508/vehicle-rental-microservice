@@ -42,7 +42,7 @@ public class ReservationController {
 
     @GetMapping("/getUserReservation/{userId}")
     public List<Reservation> getUsersReservation(@PathVariable String userId){
-        return reservationService.getAllReservations().stream().filter(r->r.getAccount().getId().equals(userId)).collect(Collectors.toList());
+        return reservationService.getAllReservations().stream().filter(r->userId.equals(r.getAccount().getId())).collect(Collectors.toList());
     }
 
     @PostMapping("/pay")
