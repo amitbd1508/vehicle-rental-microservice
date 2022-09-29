@@ -1,14 +1,13 @@
-package com.carreservation.reservationservice.entity;
-
+package com.carreservation.reservationservice.kafkamodels;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class PaymentRequest {
+@NoArgsConstructor
+public class BookingNotification {
     private String userId;
     private String reservationId;
 }

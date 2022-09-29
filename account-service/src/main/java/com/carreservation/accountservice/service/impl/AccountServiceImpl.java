@@ -61,7 +61,10 @@ public class AccountServiceImpl implements AccountService {
             accountRepository.save(account);
             AccountDTO accountDTO = modelMapper.map(account, AccountDTO.class);
 
-            return ResponseEntity.status(HttpStatus.OK).body(accountDTO);
+            LoginDTO loginDTO  =  new LoginDTO();
+            loginDTO.setPassword(accountBody.getPassword());
+            loginDTO.setUsername(accountBody.getUsername());
+            return authenticate(loginDTO);
 
         }else {
             return ResponseEntity.status(HttpStatus.OK).body("User already exist");
@@ -70,7 +73,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public ResponseEntity<?> authenticate(LoginDTO credentialsBody) {
+    public ResponseEntity<AccountDTO> authenticate(LoginDTO credentialsBody) {
         JSONObject responseObject = new JSONObject();
         try {
             var result = authenticationManager.authenticate(
@@ -80,16 +83,18 @@ public class AccountServiceImpl implements AccountService {
         } catch (BadCredentialsException e) {
             System.out.println("Exception : "+e);
             responseObject.put("credentials","Invalid credentials");
-            return ResponseEntity.badRequest().body(responseObject);
+            return ResponseEntity.badRequest().body(null);
         }
 
         final String accessToken = jwtHelper.generateToken(credentialsBody.getUsername());
         final String refreshToken = jwtHelper.generateRefreshToken(credentialsBody.getUsername());
 
 
-        responseObject.put("success",true);
-        responseObject.put("token","Bearer " +accessToken);
-        return ResponseEntity.status(HttpStatus.OK).body(responseObject);
+
+        var account  = findByUsername(credentialsBody.getUsername());
+        AccountDTO accountDTO = modelMapper.map(account, AccountDTO.class);
+        accountDTO.setAccessToken("Bearer " +accessToken);
+        return ResponseEntity.status(HttpStatus.OK).body(accountDTO);
 
     }
 

@@ -21,4 +21,6 @@ public class AccountDTO {
     private PaymentInfo paymentInfo;
     private Roles role;
 
+    private String accessToken;
+
 }
