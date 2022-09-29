@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       run: reservation
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
