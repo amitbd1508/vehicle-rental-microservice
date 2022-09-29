@@ -25,6 +25,6 @@ spec:
             privileged: false
           env: # Setting Environment Variables
             - name: CATALOG_URL
-              value: http://catalog-svc:80
+              value: http://catalog-svc:80/catalogs
             - name: SERVER_PORT
               value: "8080"
