@@ -14,6 +14,7 @@ import java.util.UUID;
 public class Account {
 
     @Id
+    @Column(length = 50)
     private String id;
     private String firstname;
     private String lastname;

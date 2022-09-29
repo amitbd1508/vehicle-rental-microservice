@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.carreservation.reservationservice.service.ReservationService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/reservations")
@@ -38,10 +39,10 @@ public class ReservationController {
         return reservationService.getReservationById(id);
     }
 
-//    @PutMapping("/{id}")
-//    public Reservation updateStatus(@PathVariable Long id, @RequestBody VehicleStatus status){
-//        return reservationService.updateStatus(id, status);
-//    }
+    @GetMapping("/getUserReservation/{userId}")
+    public List<Reservation> getUsersReservation(@PathVariable String userId){
+        return reservationService.getAllReservations().stream().filter(r->r.getAccount().getId().equals(userId)).collect(Collectors.toList());
+    }
 
     @PostMapping("/pay")
     public String pay(@RequestBody PaymentRequest paymentRequest){
