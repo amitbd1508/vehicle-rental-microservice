@@ -123,6 +123,7 @@ public class ReservationServiceImpl implements ReservationService{
         if(updateReservationMessage.getPaymentStatus().equals("PAID")){
             if(reservations!= null){
                 reservations.setReservationStatus(ReservationStatus.RESERVED);
+                reservations.getVehicle().setVehicleStatus(VehicleStatus.RESERVED);
                 reservationRepository.save(reservations);
 
                 CatalogMessageDTO catalogMessageDTO = new CatalogMessageDTO();
