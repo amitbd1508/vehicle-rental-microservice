@@ -32,4 +32,9 @@ public class NotificationController {
         return notificationRepo.findAll().stream().filter(n-> n.getUser_id().equals(userId)).collect(Collectors.toList());
 
     }
+
+  @GetMapping("/count")
+  public long getNotificationCount(){
+    return notificationRepo.findAll().stream().count();
+  }
 }

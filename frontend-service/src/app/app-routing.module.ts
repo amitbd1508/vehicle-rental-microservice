@@ -11,10 +11,17 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'cart',
+    path: 'payment',
     loadChildren: () =>
       import('./shopping-cart/shopping-cart.module').then(
         (module) => module.ShoppingCartModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'notification',
+    loadChildren: () =>
+      import('./notification/notification.module').then(
+        (module) => module.NotificationModule),
     canActivate: [AuthGuard],
   },
   {

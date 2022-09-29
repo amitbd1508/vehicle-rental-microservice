@@ -24,7 +24,8 @@ export class AccountService {
     return this.http.post(`${environment.accountsUrl}/register`, values).pipe(
       map((user: CurrentUser) => {
         if (user) {
-          localStorage.setItem('token', user.token);
+          localStorage.setItem('token', user.accessToken);
+          localStorage.setItem('user', JSON.stringify(user));
           this.currentUserSource.next(user);
         }
       })
@@ -35,7 +36,8 @@ export class AccountService {
     return this.http.post(`${environment.accountsUrl}/login`, values).pipe(
       map((user: any) => {
         if (user) {
-          localStorage.setItem('token', user.token);
+          localStorage.setItem('token', user.accessToken);
+          localStorage.setItem('user', JSON.stringify(user));
           this.currentUserSource.next(user);
         }
       })
@@ -45,27 +47,31 @@ export class AccountService {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('cartItems');
+    localStorage.removeItem('user');
     this.currentUserSource.next(null);
     this.messengerService.updateCart();
     this.router.navigateByUrl('/account/login');
   }
 
-  loadCurrentUser(token: string): any {
+  loadCurrentUser(token: string): Observable<any> {
     if (token === null) {
       this.currentUserSource.next(null);
       return of(null);
     }
 
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', `Bearer ${token}`);
+    this.currentUserSource.next(JSON.parse(localStorage.getItem('user')));
 
-    return this.http.get('/api/v1/account', { headers }).pipe(
-      map((user: CurrentUser) => {
-        if (user) {
-          localStorage.setItem('token', user.token);
-          this.currentUserSource.next(user);
-        }
-      })
-    );
+    return this.currentUserSource;
+    // let headers = new HttpHeaders();
+    // headers = headers.set('Authorization', `Bearer ${token}`);
+    //
+    // return this.http.get('/api/v1/account', { headers }).pipe(
+    //   map((user: CurrentUser) => {
+    //     if (user) {
+    //       localStorage.setItem('token', user.token);
+    //       this.currentUserSource.next(user);
+    //     }
+    //   })
+    // );
   }
 }

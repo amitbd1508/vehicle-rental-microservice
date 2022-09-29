@@ -5,6 +5,7 @@ import { ProductService } from '../../product/product.service';
 import { Router } from '@angular/router';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
 import { LoggerService } from '../../shared/service/logger.service';
+import {ReservationItem} from "../../shared/models/reservation";
 
 @Component({
   selector: 'app-cart',
@@ -12,8 +13,8 @@ import { LoggerService } from '../../shared/service/logger.service';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
-  cartItems: CartItem[];
-  cartTotal: number;
+  reservations: ReservationItem[];
+  reservationTotal: number;
 
   constructor(
     private service: CartService,
@@ -23,42 +24,21 @@ export class CartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadCart();
+    const user = JSON.parse(localStorage.getItem('user'))
+    this.service.getReservation(user.id).subscribe(data => {
+      console.log("reservation data", data);
+      this.reservations = data;
+    });
   }
 
-  loadCart(): void {
-    this.cartItems = this.service.getCartItems();
-    this.cartTotal = this.service.calculateCartTotal(this.cartItems);
-  }
+  pay(item: ReservationItem) {
+    const user = JSON.parse(localStorage.getItem('user'))
 
-  checkOut(): void {
-    this.service.checkout(this.service.getCartItems()).subscribe(
-      (it) => {
-        this.toast.setMessage(`You have placed an order of TK ${it.totalPrice}`, 'warning', 3000);
+    this.service.payReservation(item.id, user.id).subscribe(data => {
+      this.toast.setMessage(data, 'success');
 
-        this.service.clearCart();
-        this.router.navigate(['/product']);
-      },
-      (error) => {
-        this.toast.setMessage(`${error.error}`, 'danger');
-        this.logger.logError('LoginComponent', error.error);
-      }
-    );
-  }
-
-  removeItem(cartItem: CartItem): void {
-    this.service.removeCartItem(cartItem);
-    this.loadCart();
-  }
-
-  onChangeQuantity($event: string): void {
-    if ($event !== 'failed') {
-      this.loadCart();
-    } else {
-      this.toast.setMessage(
-        'Cannot increase the quantity of this product!',
-        'danger'
-      );
-    }
+    }, error => {
+      this.toast.setMessage(`${error.error}`, 'danger');
+    })
   }
 }

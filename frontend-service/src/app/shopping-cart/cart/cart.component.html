@@ -1,59 +1,41 @@
-<div *ngIf="cartItems" class="container">
+<div *ngIf="reservations" class="container">
   <div class="card-header">
-    <h3>Cart</h3>
+    <h3>Pending reservation</h3>
   </div>
-  <div class="card-text" *ngIf="cartItems.length<=0">
-    <h2 class="m-4">Your cart is empty</h2>
+  <div class="card-text" *ngIf="reservations.length<=0">
+    <h2 class="m-4">Your reservation is empty</h2>
   </div>
   <div class="row">
     <div class="col-md-12 cart">
       <table>
         <tr>
-          <th>Product Name</th>
+          <th>Vehicle Name</th>
           <th>Variant Color</th>
-          <th>Variant Size</th>
-          <th>Quantity</th>
-          <th>Price(BDT)</th>
+          <th>Plate Number</th>
+          <th>Brand</th>
+          <th>Price(USD)</th>
+          <th>Vehicle Status</th>
           <th>Action</th>
         </tr>
-        <tr *ngFor="let cartItem of cartItems">
-          <td>{{cartItem.productName}}</td>
-          <td>{{cartItem.variantColor}}</td>
-          <td>{{cartItem.variantSize}}</td>
-          <td>
-            <app-cart-item-quantity-change (quantityChange)="onChangeQuantity($event)" [cartItem]="cartItem">
-            </app-cart-item-quantity-change>
-          </td>
-          <td>
-            {{cartItem.productPrice * cartItem.quantity}}
-          </td>
+        <tr *ngFor="let item of reservations">
+          <td>{{item.vehicle.vehicleType}}</td>
+          <td>{{item.vehicle.color}}</td>
+          <td>{{item.vehicle.plateNumber}}</td>
+          <td>{{item.vehicle.brand}}</td>
+          <td>{{item.vehicle.price}}</td>
+          <td>{{item.vehicle.vehicleStatus}}</td>
           <td>
             <span>
-              <button (click)="removeItem(cartItem)" class="btn btn-danger btn-number" type="button">
-                <i class="fa fa-trash"></i>
+              <button (click)="pay(item)" *ngIf="item.reservationStatus !== 'AVAILABLE'" class="btn btn-warning" type="button">
+                Pay <i class="fa fa-cc-stripe"></i>
               </button>
+              <div class="btn btn-success" *ngIf="item.reservationStatus === 'AVAILABLE'">
+                Paid <i class="fa fa-cc-stripe"></i>
+              </div>
             </span>
           </td>
         </tr>
-
-        <tr>
-          <td colspan="6"></td>
-        </tr>
-        <tr>
-          <td>
-            Total(BDT):
-          </td>
-          <td colspan="3"></td>
-          <td colspan="2">
-            {{cartTotal}}
-          </td>
-        </tr>
       </table>
-      <div>
-        <button [disabled]="cartItems.length < 1" (click)="checkOut()"
-          class="btn btn-warning pull-right btn-lg mt-4">Checkout</button>
-        <button routerLink="/" class="btn btn-success pull-left btn-lg mt-4">Continue Shopping</button>
-      </div>
     </div>
   </div>
 </div>

@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {map} from "rxjs/operators";
+import {CurrentUser} from "../models/user";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +11,7 @@ import { Observable, Subject } from 'rxjs';
 export class MessengerService {
   cartSubject = new Subject();
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   updateCart(): void {
     this.cartSubject.next('update-cart');
@@ -16,4 +20,10 @@ export class MessengerService {
   getCartChangeNotification(): Observable<any> {
     return this.cartSubject.asObservable();
   }
+
+  getNotificationCount(): Observable<any> {
+    return this.http.get<any>(`${environment.notificationsUrl}/count`);
+  }
+
+
 }
