@@ -38,8 +38,8 @@ public class VehicleServiceImp implements VehicleService {
     @Autowired
     private KafkaTemplate<String, Vehicle> kafkaTemplate;
 
+    //    @Cacheable(cacheNames="vehicles")
     @Override
-    @Cacheable(cacheNames="vehicles")
     public Page<Vehicle> getAllVehicle(Optional<Integer> page, Optional<Integer> size) {
         Pageable pageable = PageRequest.of(page.orElse(0), size.orElse(SIZE));
         log.info("All Vehicles are retrieved from database");
@@ -60,7 +60,7 @@ public class VehicleServiceImp implements VehicleService {
         return catalogRepo.getByModel(model, pageable);
     }
 
-    @Cacheable(cacheNames="vehicles", key="#vehicleId")
+//    @Cacheable(cacheNames="vehicles", key="#vehicleId")
     @Override
     public Vehicle getVehicleById(String vehicleId) {
         log.info("Vehicle with id {} is retrieved from database", vehicleId);
@@ -68,7 +68,7 @@ public class VehicleServiceImp implements VehicleService {
     }
 
     @Override
-    @CachePut(cacheNames="vehicles", key="#vehicleId")
+//    @CachePut(cacheNames="vehicles", key="#vehicleId")
     public Vehicle updateVehicle(String vehicleId, Vehicle vehicle) {
         if(catalogRepo.findById(vehicleId).isPresent())
         {
@@ -79,7 +79,7 @@ public class VehicleServiceImp implements VehicleService {
     }
 
     @Override
-    @CacheEvict(cacheNames="vehicles", key="#vehicleId")
+//    @CacheEvict(cacheNames="vehicles", key="#vehicleId")
     public void deleteVehicle(String vehicleId) {
         catalogRepo.deleteById(vehicleId);
         log.info("Vehicle with id: " + vehicleId + " deleted");
