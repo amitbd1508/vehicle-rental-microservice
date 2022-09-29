@@ -28,10 +28,6 @@ build:
       context: reservation-service
       docker:
         dockerfile: Dockerfile
-    - image: mysql
-      context: search-service
-      docker:
-        dockerfile: Dockerfile
 deploy:
   kubectl:
     manifests:
