@@ -20,6 +20,6 @@ jwt:
   expiry: 300000
   secret: top-secret
 
-catalog.Url: http://localhost/8081/catalogs
+catalog.Url: http://localhost:8081/catalogs
 account-reservation-token: 123456789
 
