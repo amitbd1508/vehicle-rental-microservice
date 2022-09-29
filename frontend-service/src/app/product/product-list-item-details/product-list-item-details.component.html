@@ -5,6 +5,9 @@
         <h2><strong>{{product.catalogName}}</strong></h2>
       </div>
       <div>
+        <h5><strong class="mr-2">Status:</strong> <span>{{product.vehicleStatus}}</span></h5>
+      </div>
+      <div>
         <h5><strong class="mr-2">Price:</strong> <span><small>BDT </small>{{product.price}}</span></h5>
       </div>
       <div>
@@ -20,7 +23,9 @@
 
       </div>
       <div class="mt-4">
-        <button (click)="handleAddToCart(product)"  class="btn btn-success">Reserve
+        <button (click)="handleAddToCart(product)" *ngIf="product.vehicleStatus === 'AVAILABLE'"   class="btn btn-success">Reserve
+        </button>
+        <button *ngIf="product.vehicleStatus !== 'AVAILABLE'"  class="btn btn-success">Already Reserved
         </button>
       </div>
     </div>

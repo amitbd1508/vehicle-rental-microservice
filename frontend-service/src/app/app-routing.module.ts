@@ -11,7 +11,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'cart',
+    path: 'payment',
     loadChildren: () =>
       import('./shopping-cart/shopping-cart.module').then(
         (module) => module.ShoppingCartModule),

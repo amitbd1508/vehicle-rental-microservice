@@ -15,7 +15,7 @@
     </ng-container>
 
     <ng-container *ngIf="currentUser$ | async">
-      <a class="m-1 btn btn-outline-dark" routerLink="/cart">
+      <a class="m-1 btn btn-outline-dark" routerLink="/payment">
         <app-cart-item-counter></app-cart-item-counter>
       </a>
       <a (click)="logout()" class="m-1 btn btn-outline-dark" routerLink="/">Logout</a>

@@ -106,6 +106,6 @@ export class ProductListItemDetailsComponent implements OnInit {
 
     });
 
-    this.router.navigate(['/product']);
+    this.router.navigate(['/payment']);
   }
 }
