@@ -24,7 +24,7 @@ export class AccountService {
     return this.http.post(`${environment.accountsUrl}/register`, values).pipe(
       map((user: CurrentUser) => {
         if (user) {
-          localStorage.setItem('token', user.token);
+          localStorage.setItem('token', user.accessToken);
           localStorage.setItem('user', JSON.stringify(user));
           this.currentUserSource.next(user);
         }
@@ -36,7 +36,7 @@ export class AccountService {
     return this.http.post(`${environment.accountsUrl}/login`, values).pipe(
       map((user: any) => {
         if (user) {
-          localStorage.setItem('token', user.token);
+          localStorage.setItem('token', user.accessToken);
           localStorage.setItem('user', JSON.stringify(user));
           this.currentUserSource.next(user);
         }
@@ -47,6 +47,7 @@ export class AccountService {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('cartItems');
+    localStorage.removeItem('user');
     this.currentUserSource.next(null);
     this.messengerService.updateCart();
     this.router.navigateByUrl('/account/login');

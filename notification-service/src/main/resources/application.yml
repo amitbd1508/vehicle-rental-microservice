@@ -13,4 +13,5 @@ jwt:
   expiry: 300000
   secret: top-secret
 
+
 account-reservation-token: 123456789

@@ -39,7 +39,8 @@ public class ReservationServiceImpl implements ReservationService{
     @Override
     public Reservation addReservation(ReservationRequest reservationRequest, String vehicleId) {
 //        Account account = restTemplate.getForObject("http://localhost:8080/api/v1/users/" + reservationRequest.getAccount().getId(), Account.class);
-        Vehicle vehicle = restTemplate.getForObject(catalogUrl+"/" + vehicleId , Vehicle.class);
+      System.out.println(catalogUrl);
+      Vehicle vehicle = restTemplate.getForObject(catalogUrl+"/" + vehicleId , Vehicle.class);
 
 
         if (vehicle.getVehicleStatus() == VehicleStatus.AVAILABLE) {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../shared/models/product';
 import { environment } from '../../environments/environment';
@@ -16,5 +16,12 @@ export class ProductService {
 
   getProductById(id: string): Observable<Product> {
     return this.http.get<Product>(`${environment.catalogsUrl}/${id}`);
+  }
+
+  reserveProduct(token: string, body: any, id: string): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', `${token}`);
+
+    return this.http.post<any>(`${environment.reservationsUrl}/${id}`, body, {headers});
   }
 }

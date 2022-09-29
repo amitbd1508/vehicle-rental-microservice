@@ -1,9 +1,9 @@
 export interface User {
   id: string;
-  name: string;
+  firstname: string;
+  lastname: string;
+  username: string;
   email: string;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
 export interface CurrentUser {
@@ -11,5 +11,5 @@ export interface CurrentUser {
   lastname: string;
   username: string;
   email: string;
-  token: string;
+  accessToken: string;
 }
