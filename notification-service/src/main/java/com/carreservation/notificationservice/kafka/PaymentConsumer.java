@@ -1,5 +1,6 @@
 package com.carreservation.notificationservice.kafka;
 
+import com.carreservation.notificationservice.model.BookingNotification;
 import com.carreservation.notificationservice.model.PaymentNotification;
 import com.carreservation.notificationservice.service.NotificationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,6 +21,16 @@ public class PaymentConsumer {
         PaymentNotification pojo = mapper.readValue(data, PaymentNotification.class);
 
         notiService.sendPaymentNotifications(pojo);
+        System.out.println("=====================Notification listener Listener ==========================");
+        System.out.println(data);
+    }
+
+    @org.springframework.kafka.annotation.KafkaListener(groupId =KafkaConfig.GROUP_ID_JSON, topics = KafkaConfig.TOPIC_RESERVATION_BOOKING )
+    public void listenFoReservation(byte[] data) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        BookingNotification pojo = mapper.readValue(data, BookingNotification.class);
+
+        notiService.sendBookingNotification(pojo);
         System.out.println("=====================Notification listener Listener ==========================");
         System.out.println(data);
     }

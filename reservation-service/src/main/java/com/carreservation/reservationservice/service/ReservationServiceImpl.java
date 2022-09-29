@@ -3,6 +3,7 @@ package com.carreservation.reservationservice.service;
 import com.carreservation.reservationservice.controller.request.ReservationRequest;
 import com.carreservation.reservationservice.entity.*;
 import com.carreservation.reservationservice.kafka.KafkaConfig;
+import com.carreservation.reservationservice.kafkamodels.BookingNotification;
 import com.carreservation.reservationservice.kafkamodels.CatalogMessageDTO;
 import com.carreservation.reservationservice.kafkamodels.PaymentRequestDTO;
 import com.carreservation.reservationservice.repository.ReservationRepository;
@@ -33,6 +34,9 @@ public class ReservationServiceImpl implements ReservationService{
     @Autowired
     private KafkaTemplate<String, CatalogMessageDTO> kafkaCatalogTemplate;
 
+    @Autowired
+    private KafkaTemplate<String, BookingNotification> kafkaBookingTemplate;
+
     @Value("${catalog.Url}")
     private String catalogUrl;
 
@@ -50,6 +54,11 @@ public class ReservationServiceImpl implements ReservationService{
             reservation.setVehicle(vehicle);
             reservation.setReservationStatus(ReservationStatus.PENDING);
             reservation.getVehicle().setId(vehicleId);
+
+            BookingNotification notification = new BookingNotification();
+            notification.setReservationId(reservation.getId());
+            notification.setUserId(reservation.getAccount().getId());
+            kafkaBookingTemplate.send(KafkaConfig.TOPIC_RESERVATION_BOOKING, notification);
 
             return reservationRepository.save(reservation);
         } else
