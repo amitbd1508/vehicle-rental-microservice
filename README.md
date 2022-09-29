@@ -35,4 +35,7 @@ Eg: ``sh scripts/logs/reservation-log.sh``
 - Amit Ghosh (614170)
 - Mohammed Abdul Kadir (614722)
 - Sanaullah Al Real (614245)
+- Murat Konuralp Senoglu(614610)
+- Silvana Ishak(614612)
+- Nora Chaynane(614602)
 
