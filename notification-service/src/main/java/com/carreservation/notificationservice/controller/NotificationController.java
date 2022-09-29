@@ -33,8 +33,8 @@ public class NotificationController {
 
     }
 
-  @GetMapping("/count")
-  public long getNotificationCount(){
-    return notificationRepo.findAll().stream().count();
+  @GetMapping("/count/{userId}")
+  public long getNotificationCount(@PathVariable String userId){
+    return notificationRepo.findAll().stream().filter(n-> userId.equals(n.getUser_id())).count();
   }
 }
