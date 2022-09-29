@@ -22,7 +22,8 @@ export class MessengerService {
   }
 
   getNotificationCount(): Observable<any> {
-    return this.http.get<any>(`${environment.notificationsUrl}/count`);
+    const user  = JSON.parse(localStorage.getItem('user'))
+    return this.http.get<any>(`${environment.notificationsUrl}/count/${user.id}`);
   }
 
 

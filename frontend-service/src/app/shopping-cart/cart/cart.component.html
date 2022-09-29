@@ -14,7 +14,7 @@
           <th>Plate Number</th>
           <th>Brand</th>
           <th>Price(USD)</th>
-          <th>Vehicle Status</th>
+          <th>Reservation Status</th>
           <th>Action</th>
         </tr>
         <tr *ngFor="let item of reservations">
@@ -23,15 +23,12 @@
           <td>{{item.vehicle.plateNumber}}</td>
           <td>{{item.vehicle.brand}}</td>
           <td>{{item.vehicle.price}}</td>
-          <td>{{item.vehicle.vehicleStatus}}</td>
+          <td>{{item.reservationStatus}}</td>
           <td>
             <span>
-              <button (click)="pay(item)" *ngIf="item.reservationStatus !== 'AVAILABLE'" class="btn btn-warning" type="button">
+              <button (click)="pay(item)" *ngIf="item.reservationStatus === 'PENDING'" class="btn btn-warning" type="button">
                 Pay <i class="fa fa-cc-stripe"></i>
               </button>
-              <div class="btn btn-success" *ngIf="item.reservationStatus === 'AVAILABLE'">
-                Paid <i class="fa fa-cc-stripe"></i>
-              </div>
             </span>
           </td>
         </tr>

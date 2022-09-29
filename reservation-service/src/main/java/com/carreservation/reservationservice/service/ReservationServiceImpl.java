@@ -114,7 +114,7 @@ public class ReservationServiceImpl implements ReservationService{
 
         kafkaTemplate.send(KafkaConfig.TOPIC_NAME_RESERVATION_CREATED, dto);
 
-        return "Processing...";
+        return "{message: payment done}";
 
     }
 

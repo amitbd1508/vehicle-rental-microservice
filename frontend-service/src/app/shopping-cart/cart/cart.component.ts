@@ -24,6 +24,10 @@ export class CartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+   this.load();
+  }
+
+  load(): void {
     const user = JSON.parse(localStorage.getItem('user'))
     this.service.getReservation(user.id).subscribe(data => {
       console.log("reservation data", data);
@@ -35,10 +39,13 @@ export class CartComponent implements OnInit {
     const user = JSON.parse(localStorage.getItem('user'))
 
     this.service.payReservation(item.id, user.id).subscribe(data => {
-      this.toast.setMessage(data, 'success');
+      this.toast.setMessage(data.message, 'success');
+      console.log(data);
+      this.load();
 
     }, error => {
-      this.toast.setMessage(`${error.error}`, 'danger');
+      this.toast.setMessage(error.text, 'success');
+      console.error(error)
     })
   }
 }

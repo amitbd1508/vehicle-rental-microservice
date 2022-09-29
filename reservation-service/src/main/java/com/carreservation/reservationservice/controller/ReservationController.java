@@ -5,6 +5,7 @@ import com.carreservation.reservationservice.controller.request.ReservationReque
 import com.carreservation.reservationservice.entity.PaymentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.carreservation.reservationservice.service.ReservationService;
 
@@ -45,8 +46,8 @@ public class ReservationController {
     }
 
     @PostMapping("/pay")
-    public String pay(@RequestBody PaymentRequest paymentRequest){
-        return reservationService.pay(paymentRequest);
+    public ResponseEntity<?> pay(@RequestBody PaymentRequest paymentRequest){
+        return ResponseEntity.ok(reservationService.pay(paymentRequest));
     }
 
 }
