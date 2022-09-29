@@ -13,10 +13,11 @@ export class NotificationCounterComponent implements OnInit {
   constructor(private svc: MessengerService) { }
 
   ngOnInit(): void{
+    const user = JSON.parse(localStorage.getItem('user'))
     TimerObservable.create(0, 2000)
       .subscribe(() => {
         console.log("scheduler is running")
-        this.svc.getNotificationCount().subscribe(data => {
+        this.svc.getNotificationCount(user.id).subscribe(data => {
           console.log("data", data)
           this.currentNotificationSize = data;
         })

@@ -21,8 +21,9 @@ export class MessengerService {
     return this.cartSubject.asObservable();
   }
 
-  getNotificationCount(): Observable<any> {
-    return this.http.get<any>(`${environment.notificationsUrl}/count`);
+  getNotificationCount(userId): Observable<any> {
+
+    return this.http.get<any>(`${environment.notificationsUrl}/count/${userId}`);
   }
 
 
