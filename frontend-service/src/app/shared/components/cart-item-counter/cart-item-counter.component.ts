@@ -16,17 +16,6 @@ export class CartItemCounterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.handleSubscription();
-    this.updateCartCount();
   }
 
-  handleSubscription(): void {
-    this.messengerService.getCartChangeNotification().subscribe((payload) => {
-      this.updateCartCount();
-    });
-  }
-
-  updateCartCount(): void {
-    this.currentCartSize = this.cartService.getCartItemsCount();
-  }
 }
